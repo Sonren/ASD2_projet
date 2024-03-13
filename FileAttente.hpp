@@ -7,8 +7,8 @@
 #include "Personne.hpp"
 
 
-#ifndef TABLEDECHARGE_HPP
-#define TABLEDECHARGE_HPP
+#ifndef FILEATTENTE_HPP
+#define FILEATTENTE_HPP
 
 
 class FileAttente {

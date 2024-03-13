@@ -17,7 +17,8 @@ class FileAttente {
         FileAttente();  /*! Constructeur par défaut */
 	    ~FileAttente(); /*! Destructeur */
         void ajouter(elections::Personne* pPers); /*! Ajoute une personne à la file d'attente */
-        elections::Personne sortir(); /*! Retire et renvoie le premier de la file d'attente */    
+        elections::Personne* sortir(); /*! Retire et renvoie le premier de la file d'attente */   
+        bool estVide();       /*! Renvoie vrai si la file d'attente est vide */
 
 
     private :

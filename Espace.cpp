@@ -1,0 +1,41 @@
+/**
+ * \file Espace.hpp
+ * \author Bertrand RIVARD
+*/
+
+#include "Espace.hpp"
+
+Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace() {}
+
+Espace::~Espace() {
+    // Libération de la mémoire allouée pour la personne actuellement dans l'espace
+    if (persoEnCours != nullptr) {
+        delete persoEnCours;
+    }
+
+    // Aucune libération de mémoire n'est nécessaire pour la file d'attente,
+    // car elle se charge de libérer la mémoire de ses éléments dans son propre destructeur
+}
+
+bool Espace::estVide() {
+    return persoEnCours == NULL;
+}
+
+void Espace::ajouterPersonne(Personne* persDecharge) {
+    if(estVide()) {
+        persoEnCours = persDecharge;
+    } else {
+        // On place la personne en attente
+        fileEspace.enfiler(persDecharge);
+    }
+}
+
+Personne* Espace::sortirPersonne() {
+
+    if(estVide()) {
+        throw std::runtime_error("La Table de décharge est vide");
+    } else {
+        Personne* pTemp = persoEnCours;
+        persoEnCours = fileEspace.defiler();
+    }
+}

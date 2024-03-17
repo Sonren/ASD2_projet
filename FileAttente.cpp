@@ -19,12 +19,12 @@ FileAttente::~FileAttente() {
     }
 }
 
-void FileAttente::ajouter(elections::Personne* pPers) {
+void FileAttente::enfiler(elections::Personne* pPers) {
     // ajoute une personne à la file d'attente
     file.push_back(pPers); // ajoute la personne à la fin de la liste
 }
 
-elections::Personne* FileAttente::sortir() {
+elections::Personne* FileAttente::defiler() {
     // retire et renvoie le premier de la file d'attente
     if (file.empty()) {
         throw std::runtime_error("La file d'attente est vide"); // lève une exception si la file d'attente est vide

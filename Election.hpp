@@ -23,10 +23,13 @@ class Election {
         void setNom(std::string nom_election);
         void ajouter_candidat(Personne p);
         Personne retirer_candidat(int id);//a voir si retourner la personne est pertinent (gain de temps ?)
+        bool est_sur_liste(Personne p);
+        void ajouter_electeur(Personne p);
 
     private :
         std::string nom_election;
         std::vector <Personne> candidats;
+        std::vector <Personne> liste_electorale;
 
 
 };

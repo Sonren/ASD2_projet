@@ -34,8 +34,13 @@ int Personne::spol() const
    return spol_;
 }
 
-int Personne::getsid(){
-   return this->sid_;
+
+bool Personne::equals_personne(Personne p2){ //a enlever si jamais ca ne sert a rien 
+   bool is_equal = false;
+   if (this->id_ == p2.id() && this->nom_ == p2.nom() && this->prenom_ == p2.prenom() && this->spol_ == p2.spol()){
+      return is_equal = true;
+   }
+   return is_equal;
 }
 
 std::ostream& operator<<(std::ostream& os, const Personne& psn)

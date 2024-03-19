@@ -34,10 +34,10 @@ void Election::ajouter_candidat(Personne p){
 
 Personne Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
     for(int i=0; i<this->candidats.size();i++){
-        if (this->candidats[i].getsid() == id) { //peut generer des erreurs a voir si le bon sid est recuperer
+        if (this->candidats[i].id() == id) { 
             if (i < this->candidats.size() - 1) {
-             this->candidats[i] = this->candidats.back();
-            }
+             this->candidats[i] = this->candidats.back(); //on place la personne sur la derniere place de vecteur pour pouvoir le supprimer
+            }                                             //cela va permettre d'éviter de supprimer en dehors des limites du vecteur
         this->candidats.pop_back();
         }   
     }

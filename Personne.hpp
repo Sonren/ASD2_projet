@@ -51,6 +51,8 @@ public:
     */
    int spol() const;
 
+   int getsid();
+
 private:
    std::string nom_, prenom_;
    int id_, spol_;

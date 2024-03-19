@@ -34,6 +34,10 @@ int Personne::spol() const
    return spol_;
 }
 
+int Personne::getsid(){
+   return this->sid_;
+}
+
 std::ostream& operator<<(std::ostream& os, const Personne& psn)
 {
    os << psn.nom() << " " << psn.prenom() << " " << psn.spol();

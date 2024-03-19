@@ -31,6 +31,7 @@ int main(void)
       new Personne("Z", "pat", 8)
    };
 
+   cout << "hello world" << endl;
 
    // TODO
    // Code de simulation dans lequel on manipulera les personnes

@@ -1,6 +1,6 @@
 /**
  * \file Espace.hpp
- * \author Bertrand RIVARD
+ * \author Bertrand RIVARD Hugo PIARD
 */
 
 #include "Espace.hpp"

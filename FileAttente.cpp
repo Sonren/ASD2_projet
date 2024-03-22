@@ -1,6 +1,6 @@
 /**
  * \file FileAttente.cpp
- *  \author Bertrand RIVARD
+ *  \author Bertrand RIVARD Hugo PIARD
 */
 
 #include "FileAttente.hpp"

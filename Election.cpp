@@ -6,13 +6,14 @@
 #include <vector>
 #include <iostream>
 #include "Election.hpp"
+#include "Personne.hpp"
 
 Election::Election(const std::string& nom){
     this->nom_election = nom;
-    this->candidats = std::vector<Personne>();
+    this->candidats = std::vector<Personne*>();
 }
 
-Election::Election(const std::string& nom, std::vector <Personne> liste_candidat){
+Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat){
     this->nom_election = nom;
     this->candidats = liste_candidat;
 }
@@ -29,13 +30,13 @@ void Election::setNom(std::string new_nom){
     this->nom_election = new_nom;
 }
 
-void Election::ajouter_candidat(Personne p){
+void Election::ajouter_candidat(Personne* p){
     this->candidats.push_back(p);
 }
 
 void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
     for(long unsigned int i=0; i<this->candidats.size();i++){
-        if (this->candidats[i].id() == id) { 
+        if ((*(candidats[i])).id() == id) { 
             if (i < this->candidats.size() - 1) {
              this->candidats[i] = this->candidats.back(); //on place la personne sur la derniere place de vecteur pour pouvoir le supprimer
             }                                             //cela va permettre d'éviter de supprimer en dehors des limites du vecteur
@@ -45,6 +46,7 @@ void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
 }
 
 bool Election::est_sur_liste(int deb, int end , int id){
+    Personne::CompAlpha cmp;
     bool est_dessus = false;
     int mediane = 0;
     if(deb > end){
@@ -52,9 +54,9 @@ bool Election::est_sur_liste(int deb, int end , int id){
         return est_dessus;
     }else{
         mediane  = (end + deb)/2;
-        if(id = this->candidats[mediane].id()){
+        if(id == (*(liste_electorale[mediane])).id()){
             est_dessus = true;
-        }else if(id < this->candidats[mediane].id()){
+        }else if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true){
             est_sur_liste(deb, mediane-1, id);
         }else{
             est_sur_liste(mediane+1, end, id);
@@ -63,7 +65,8 @@ bool Election::est_sur_liste(int deb, int end , int id){
     return est_dessus;
 }
 
-/*bool Election::ajouter_electeur(Personne p, int deb, int end){
+bool Election::ajouter_electeur(Personne* p, int deb, int end){
+    Personne::CompAlpha  cmp;
     bool a_été_ajouté = false;
     int mediane = 0;
     if(deb > end){
@@ -71,12 +74,12 @@ bool Election::est_sur_liste(int deb, int end , int id){
         return a_été_ajouté;
     }else{
         mediane  = (end + deb)/2;
-        if(id = this->candidats[mediane].id()){
-            est_dessus = true;
-        }else if(id < this->candidats[mediane].id()){
-            est_sur_liste(deb, mediane-1, id);
+        if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true && cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == false){
+            liste_electorale.insert(liste_electorale.begin() + mediane-1, p);  
+        }else if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true){
+            est_sur_liste(deb, mediane-1, (*p).id());
         }else{
-            est_sur_liste(mediane+1, end, id);
+            est_sur_liste(mediane+1, end, (*p).id());
         }
     }
-}*/
+}

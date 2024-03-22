@@ -53,8 +53,6 @@ public:
 
    int getsid();
 
-   bool equals_personne(Personne p2); //a voir si ca peut servir
-
 private:
    std::string nom_, prenom_;
    int id_, spol_;

@@ -2,7 +2,7 @@ CC = g++
 CFLAGS=-Wall -std=c++17 -g
 INCLUDES = -I.
 LFLAGS = -lm
-OBJ = main.o Personne.o FileAttente.o Espace.o
+OBJ = main.o Personne.o FileAttente.o Espace.o Election.o
 TARGET = main
 
 all: $(TARGET)
@@ -12,7 +12,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 
-main.o: main.cpp Personne.hpp FileAttente.hpp Espace.hpp
+main.o: main.cpp Personne.hpp FileAttente.hpp Espace.hpp Election.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.cpp -o main.o
 
 Personne.o: Personne.cpp Personne.hpp
@@ -21,8 +21,11 @@ Personne.o: Personne.cpp Personne.hpp
 Matrice.o: FileAttente.cpp FileAttente.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttente.cpp -o FileAttente.o
 
-Vecteur.o: Espace.cpp Espace.hpp
+Espace.o: Espace.cpp Espace.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c Espace.cpp -o Espace.o
+
+Election.o: Election.cpp Election.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c Election.cpp -o Election.o
 
 
 clean:

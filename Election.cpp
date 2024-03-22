@@ -4,6 +4,7 @@
 */
 
 #include <vector>
+#include <iostream>
 #include "Election.hpp"
 
 Election::Election(const std::string& nom){
@@ -32,8 +33,8 @@ void Election::ajouter_candidat(Personne p){
     this->candidats.push_back(p);
 }
 
-Personne Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
-    for(int i=0; i<this->candidats.size();i++){
+void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
+    for(long unsigned int i=0; i<this->candidats.size();i++){
         if (this->candidats[i].id() == id) { 
             if (i < this->candidats.size() - 1) {
              this->candidats[i] = this->candidats.back(); //on place la personne sur la derniere place de vecteur pour pouvoir le supprimer
@@ -43,3 +44,39 @@ Personne Election::retirer_candidat(int id){//a voir pour changer pour plus rapi
     }
 }
 
+bool Election::est_sur_liste(int deb, int end , int id){
+    bool est_dessus = false;
+    int mediane = 0;
+    if(deb > end){
+        std::cout << "les valeurs de début et fin sont incorrects "<< std::endl;
+        return est_dessus;
+    }else{
+        mediane  = (end + deb)/2;
+        if(id = this->candidats[mediane].id()){
+            est_dessus = true;
+        }else if(id < this->candidats[mediane].id()){
+            est_sur_liste(deb, mediane-1, id);
+        }else{
+            est_sur_liste(mediane+1, end, id);
+        }
+    }
+    return est_dessus;
+}
+
+/*bool Election::ajouter_electeur(Personne p, int deb, int end){
+    bool a_été_ajouté = false;
+    int mediane = 0;
+    if(deb > end){
+        std::cout << "les valeurs de début et fin sont incorrects "<< std::endl;
+        return a_été_ajouté;
+    }else{
+        mediane  = (end + deb)/2;
+        if(id = this->candidats[mediane].id()){
+            est_dessus = true;
+        }else if(id < this->candidats[mediane].id()){
+            est_sur_liste(deb, mediane-1, id);
+        }else{
+            est_sur_liste(mediane+1, end, id);
+        }
+    }
+}*/

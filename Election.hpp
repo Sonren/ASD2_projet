@@ -22,9 +22,9 @@ class Election {
         std::string getNom() const;
         void setNom(std::string nom_election);
         void ajouter_candidat(Personne p);
-        Personne retirer_candidat(int id);//a voir si retourner la personne est pertinent (gain de temps ?)
-        bool est_sur_liste(Personne p);
-        void ajouter_electeur(Personne p);
+        void retirer_candidat(int id);//a voir si retourner la personne est pertinent (gain de temps ?)
+        bool est_sur_liste(int deb, int end, int id);
+        bool ajouter_electeur(Personne p, int deb, int end);
 
     private :
         std::string nom_election;

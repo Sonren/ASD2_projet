@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include "Personne.hpp"
+#include "Election.hpp"
 
 using namespace std;
 using namespace elections;
@@ -30,7 +31,23 @@ int main(void)
       new Personne("Y", "rik", 2),
       new Personne("Z", "pat", 8)
    };
+
+   std::vector<Personne*> ve = {
+      vp[0],
+      vp[1],
+      vp[2],
+      vp[4],
+      vp[5],
+      vp[6],
+      vp[7],
+      vp[9],
+   };
    
+   std::vector<Personne*> vc = {
+      vp[0],
+      vp[1],
+      vp[2],
+   };
    
    cout << "hello world" << endl;
 
@@ -38,7 +55,16 @@ int main(void)
    // Code de simulation dans lequel on manipulera les personnes
    // via des pointeurs sur les éléments du vecteur vp.
 
-   // destruction des personnes
+  
+
+   Election *presidentielle = new Election("presidentielle", vc, ve);
+   cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
+   cout << "liste des candidats : " << endl << endl;
+   presidentielle->afficher_candidat();
+   cout << "liste des electeurs : " << endl << endl;
+   presidentielle->afficher_electeur();
+
+    // destruction des personnes
    for (Personne* psn : vp)
    {
       delete psn;

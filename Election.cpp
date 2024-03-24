@@ -18,6 +18,12 @@ Election::Election(const std::string& nom, std::vector <Personne*> liste_candida
     this->candidats = liste_candidat;
 }
 
+Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Personne*> liste_electeur){
+    this->nom_election = nom;
+    this->candidats = liste_candidat;
+    this->liste_electorale = liste_electeur;
+}
+
 Election::~Election(){
     this->candidats.clear();
 }
@@ -71,6 +77,7 @@ bool Election::ajouter_electeur(Personne* p, int deb, int end){
     int mediane = 0;
     if(deb > end){
         std::cout << "les valeurs de début et fin sont incorrects "<< std::endl;
+        a_été_ajouté = true;
         return a_été_ajouté;
     }else{
         mediane  = (end + deb)/2;
@@ -82,4 +89,20 @@ bool Election::ajouter_electeur(Personne* p, int deb, int end){
             est_sur_liste(mediane+1, end, (*p).id());
         }
     }
+    return a_été_ajouté;
+}
+
+
+void Election::afficher_candidat(){
+    for(int i = 0; i<this->candidats.size(); i++){
+        std::cout << (*this->candidats[i]) << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void Election::afficher_electeur(){
+    for(int i = 0; i<this->liste_electorale.size(); i++){
+        std::cout << (*this->liste_electorale[i]) << std::endl;
+    }
+    std::cout << std::endl;
 }

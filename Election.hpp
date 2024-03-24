@@ -25,8 +25,8 @@ class Election {
         void ajouter_candidat(Personne* p);
         void retirer_candidat(int id);//a voir si retourner la personne est pertinent (gain de temps ?)
         void afficher_candidat();
-        bool est_sur_liste(int deb, int end, int id);
-        bool ajouter_electeur(Personne* p, int deb, int end);
+        bool est_sur_liste(int deb, int end, Personne* p);
+        bool ajouter_electeur(int deb, int end, Personne* p);
         void afficher_electeur();
 
     private :

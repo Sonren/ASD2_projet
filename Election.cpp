@@ -51,42 +51,52 @@ void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
     }
 }
 
-bool Election::est_sur_liste(int deb, int end , int id){
+bool Election::est_sur_liste(int deb, int end , Personne* p){
     Personne::CompAlpha cmp;
     bool est_dessus = false;
-    int mediane = 0;
+    int mediane;
     if(deb > end){
         std::cout << "les valeurs de début et fin sont incorrects "<< std::endl;
         return est_dessus;
     }else{
         mediane  = (end + deb)/2;
-        if(id == (*(liste_electorale[mediane])).id()){
+        if((*p).id() == (*(liste_electorale[mediane])).id()){
+            std::cout << "trouvé! " << liste_electorale[mediane]->id() << " " << liste_electorale[mediane]->nom() << " " << liste_electorale[mediane]->prenom() << std::endl;
             est_dessus = true;
-        }else if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true){
-            est_sur_liste(deb, mediane-1, id);
+            return est_dessus;
+        }else if(cmp.operator()(p, liste_electorale[mediane]) == true){
+            est_sur_liste(deb, mediane-1, p);
         }else{
-            est_sur_liste(mediane+1, end, id);
+            est_sur_liste(mediane+1, end, p);
         }
     }
-    return est_dessus;
 }
 
-bool Election::ajouter_electeur(Personne* p, int deb, int end){
+bool Election::ajouter_electeur( int deb, int end, Personne* p){
     Personne::CompAlpha  cmp;
     bool a_été_ajouté = false;
-    int mediane = 0;
+    int mediane;
+    std::cout << "coucou" << std::endl;
     if(deb > end){
         std::cout << "les valeurs de début et fin sont incorrects "<< std::endl;
-        a_été_ajouté = true;
         return a_été_ajouté;
     }else{
         mediane  = (end + deb)/2;
-        if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true && cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == false){
-            liste_electorale.insert(liste_electorale.begin() + mediane-1, p);  
-        }else if(cmp.operator()(liste_electorale[mediane-1], liste_electorale[mediane+1]) == true){
-            est_sur_liste(deb, mediane-1, (*p).id());
+        if(mediane == end){
+            liste_electorale.insert(liste_electorale.begin() + end+1, p); 
+            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
+            a_été_ajouté = true;
+            return a_été_ajouté;
+        }
+        if(((cmp.operator()(p, liste_electorale[mediane]) == true && cmp.operator()(liste_electorale[mediane], p) == false)) || (cmp.operator()(p,liste_electorale[mediane]) == false && cmp.operator()(liste_electorale[mediane], p) == false)){
+            liste_electorale.insert(liste_electorale.begin() + mediane-1, p); 
+            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
+            a_été_ajouté = true;
+            return a_été_ajouté;
+        }else if(cmp.operator()(p, liste_electorale[mediane]) == true){
+            ajouter_electeur(deb, mediane-1, p);
         }else{
-            est_sur_liste(mediane+1, end, (*p).id());
+            ajouter_electeur(mediane+1, end, p);
         }
     }
     return a_été_ajouté;
@@ -94,14 +104,14 @@ bool Election::ajouter_electeur(Personne* p, int deb, int end){
 
 
 void Election::afficher_candidat(){
-    for(int i = 0; i<this->candidats.size(); i++){
+    for(long unsigned int i = 0; i<this->candidats.size(); i++){
         std::cout << (*this->candidats[i]) << std::endl;
     }
     std::cout << std::endl;
 }
 
 void Election::afficher_electeur(){
-    for(int i = 0; i<this->liste_electorale.size(); i++){
+    for(long unsigned int i = 0; i<this->liste_electorale.size(); i++){
         std::cout << (*this->liste_electorale[i]) << std::endl;
     }
     std::cout << std::endl;

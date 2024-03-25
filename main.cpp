@@ -33,10 +33,9 @@ int main(void)
    };
 
    std::vector<Personne*> ve = {
+      /*vp[0],
       vp[1],
-      vp[2],
-      vp[4],
-      vp[5]
+      vp[2],*/
    };
    
    std::vector<Personne*> vc = {
@@ -59,10 +58,10 @@ int main(void)
    presidentielle->afficher_candidat();
    cout << "liste des electeurs : " << endl << endl;
    presidentielle->afficher_electeur();
-   bool bol = presidentielle->est_sur_liste(0,6,ve[1]);
+   bool bol = presidentielle->est_sur_liste(0,2,vp[1]);
    cout << bol<< endl;
    presidentielle->afficher_electeur();
-   bool bol1 = presidentielle->ajouter_electeur(0,3,vp[3]);
+   bool bol1 = presidentielle->ajouter_electeur(0,2,vp[3]);
    presidentielle->afficher_electeur();
    cout << bol1<< endl;
    

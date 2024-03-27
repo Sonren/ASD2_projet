@@ -18,7 +18,7 @@ main.o: main.cpp Personne.hpp FileAttente.hpp Espace.hpp Election.hpp
 Personne.o: Personne.cpp Personne.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c Personne.cpp -o Personne.o
 
-Matrice.o: FileAttente.cpp FileAttente.hpp
+FileAttente.o: FileAttente.cpp FileAttente.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttente.cpp -o FileAttente.o
 
 Espace.o: Espace.cpp Espace.hpp

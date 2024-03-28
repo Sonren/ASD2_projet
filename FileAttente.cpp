@@ -37,3 +37,4 @@ elections::Personne* FileAttente::defiler() {
 bool FileAttente::estVide() {
     return file.empty(); // si la liste est vide, renvoie vrai
 }
+

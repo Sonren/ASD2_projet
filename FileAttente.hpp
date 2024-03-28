@@ -22,7 +22,7 @@ class FileAttente {
         bool estVide();       /*! Renvoie vrai si la file d'attente est vide */
 
 
-    private :
+    protected :
 
         std::list<Personne*> file; /*! La file d'attente */
 };

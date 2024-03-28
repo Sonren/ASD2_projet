@@ -6,7 +6,9 @@
 #include "Isoloir.hpp"
 
 
-Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir), persDansIsoloir(), fileIsoloir(nbIsoloir) {}
+Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir){
+    persDansIsoloir = new FileAttenteCapacite(nbIsoloir);
+}
 
 Isoloir::~Isoloir() {
     // Libérer les ressources acquises par l'objet persDansIsoloir
@@ -27,7 +29,7 @@ bool Isoloir::estVide(){
 
 void Isoloir::ajouterPersonne(Personne* persIsoloir) {
     if (persDansIsoloir.estPleine()) {
-        filerIsoloir.enfiler(persIsoloir);
+        Isoloir::fileIsoloir.enfiler(persIsoloir);
     } else {
         persDansIsoloir.enfiler(persIsoloir);
     }

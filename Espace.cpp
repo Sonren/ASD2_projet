@@ -37,5 +37,6 @@ Personne* Espace::sortirPersonne() {
     } else {
         Personne* pTemp = persoEnCours;
         persoEnCours = fileEspace.defiler();
+        return pTemp;
     }
 }

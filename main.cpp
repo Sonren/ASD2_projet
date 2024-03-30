@@ -9,6 +9,7 @@
 #include <vector>
 #include "Personne.hpp"
 #include "Election.hpp"
+#include "Espace.hpp"
 
 using namespace std;
 using namespace elections;
@@ -65,6 +66,16 @@ int main(void)
    presidentielle->afficher_electeur();
    cout << bol1<< endl;
    
+
+   cout << " ---------------Espace--------------" << endl;
+   Espace *table_de_vote = new Espace(2,"table de vote");
+   table_de_vote->afficherInfos();
+   table_de_vote->ajouterPersonne(vp[0]);
+   table_de_vote->afficherInfos();
+   table_de_vote->ajouterPersonne(vp[1]);
+   table_de_vote->afficherInfos();
+   table_de_vote->sortirPersonne();
+   table_de_vote->afficherInfos();
 
     // destruction des personnes
    for (Personne* psn : vp)

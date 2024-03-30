@@ -20,6 +20,7 @@ class FileAttente {
         void enfiler(Personne* pPers); /*! Ajoute une personne à la file d'attente */
         Personne* defiler(); /*! Retire et renvoie le premier de la file d'attente */   
         bool estVide();       /*! Renvoie vrai si la file d'attente est vide */
+        void afficherFile();   /*! Affichage des personnes dans la File d'attente*/
 
 
     protected :

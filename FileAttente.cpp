@@ -38,3 +38,9 @@ bool FileAttente::estVide() {
     return file.empty(); // si la liste est vide, renvoie vrai
 }
 
+void FileAttente::afficherFile(){
+    for(auto it = file.begin(); it != file.end(); it++){
+        std::cout << *(*it) <<std::endl;
+    }
+}
+

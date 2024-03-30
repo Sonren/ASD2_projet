@@ -36,7 +36,18 @@ Personne* Espace::sortirPersonne() {
         throw std::runtime_error("La Table de décharge est vide");
     } else {
         Personne* pTemp = persoEnCours;
-        persoEnCours = fileEspace.defiler();
+        persoEnCours = NULL;
         return pTemp;
+    }
+}
+
+void Espace::afficherInfos(){
+    if(estVide()){
+        std::cout << "l'espace est vide " << std::endl;
+    }else{
+        std::cout << "l'espace  contient une personne : " << *persoEnCours << std::endl ;
+        std::cout << "elle doit rester : " << De << " en temps" << std::endl;
+        std::cout << "Affichage de la file d'attente : " << std::endl;
+        fileEspace.afficherFile(); 
     }
 }

@@ -17,6 +17,8 @@ class Espace {
         bool estVide(); /*! Vérifie si l'espace est vide ou non */
         void ajouterPersonne(Personne* persDecharge); /* ajoute une personne à l'espace */
         Personne* sortirPersonne(); /*! sort une personne de l'espace et renvoie cette personne */
+        void  afficherInfos(); /*Affiche toute les infos sur l'espace (la personne dedans et la duree)*/
+
 
 
     private : 

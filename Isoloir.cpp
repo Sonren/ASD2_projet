@@ -4,6 +4,8 @@
 */
 
 #include "Isoloir.hpp"
+#include "Personne.hpp"
+#include "Election.hpp"
 
 
 Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir){
@@ -35,11 +37,11 @@ void Isoloir::ajouterPersonne(Personne* persIsoloir) {
     }
 }
 
-elections::Personne* sortirPersonne() {
+Personne* Isoloir::sortirPersonne() {
     if(estVide()) {
         throw std::runtime_error("L'Espace d'isoloir est vide");
     } else {
-        elections::Personne* pTemp = persDansIsoloir.defiler();
+        Personne* pTemp = persDansIsoloir.defiler();
         return pTemp;
     }
 }

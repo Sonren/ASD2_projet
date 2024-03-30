@@ -27,6 +27,14 @@ Espace.o: Espace.cpp Espace.hpp
 Election.o: Election.cpp Election.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c Election.cpp -o Election.o
 
+FileAttente.o: FileAttente.cpp FileAttente.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttente.cpp -o FileAttente.o
+
+FileAttenteCapacite.o: FileAttenteCapacite.cpp FileAttenteCapacite.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttenteCapacite.cpp -o FileAttenteCapacite.o
+
+Isoloir.o: Isoloir.cpp Isoloir.hpp
+	$(CC) $(CFLAGS) $(INCLUDES) -c Isoloir.cpp -o Isoloir.o
 
 clean:
 	rm -f *~ *.o main

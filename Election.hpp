@@ -16,9 +16,9 @@ using namespace elections;
 class Election {
 
     public :
-        Election(const std::string& nom); //constructeur  de la classe election avec un vecteur vide que l'utilisateur devra remplir
-        Election(const std::string& nom, std::vector <Personne*> liste_electeur, std::vector <Personne*> liste_candidat);
-        Election(const std::string& nom, std::vector <Personne*> liste_candidat); // constructeur  de la classe election avec le vecteur qui va permettre de remplir la liste 
+        Election(const std::string& nom, int nb_electeur); //constructeur  de la classe election avec un vecteur vide que l'utilisateur devra remplir
+        Election(const std::string& nom, std::vector <Personne*> liste_electeur, std::vector <Personne*> liste_candidat, int nb_electeur);
+        Election(const std::string& nom, std::vector <Personne*> liste_candidat, int nb_electeur); // constructeur  de la classe election avec le vecteur qui va permettre de remplir la liste 
         ~Election();
         std::string getNom() const;
         void setNom(std::string nom_election);
@@ -28,12 +28,13 @@ class Election {
         bool est_sur_liste(int deb, int end, Personne* p);
         bool ajouter_electeur(int deb, int end, Personne* p);
         void afficher_electeur();
+        void signer_liste(int ID);
+        bool a_signer(int ID);
 
     private :
         std::string nom_election;
         std::vector <Personne*> candidats;
         std::vector <Personne*> liste_electorale;
-
-
+        bool* liste_emargement;
 };
 #endif

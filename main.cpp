@@ -16,6 +16,7 @@ using namespace elections;
 
 int main(void)
 {
+
    // initialisation du générateur de nombres aléatoires
    std::srand(std::time(nullptr));
 
@@ -34,26 +35,18 @@ int main(void)
    };
 
    std::vector<Personne*> ve = {
-      /*vp[0],
-      vp[1],
-      vp[2],*/
    };
    
    std::vector<Personne*> vc = {
-      vp[0],
-      vp[1],
-      vp[2],
    };
    
-   cout << "hello world" << endl;
-
    // TODO
    // Code de simulation dans lequel on manipulera les personnes
    // via des pointeurs sur les éléments du vecteur vp.
 
   
 
-   Election *presidentielle = new Election("presidentielle", vc, ve);
+   Election *presidentielle = new Election("presidentielle", vc, ve, 9);
    cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
    cout << "liste des candidats : " << endl << endl;
    presidentielle->afficher_candidat();
@@ -65,9 +58,9 @@ int main(void)
    bool bol1 = presidentielle->ajouter_electeur(0,2,vp[3]);
    presidentielle->afficher_electeur();
    cout << bol1<< endl;
-   
 
-   cout << " ---------------Espace--------------" << endl;
+
+   /*cout << " ---------------Espace--------------" << endl;
    Espace *table_de_vote = new Espace(2,"table de vote");
    table_de_vote->afficherInfos();
    table_de_vote->ajouterPersonne(vp[0]);
@@ -75,7 +68,7 @@ int main(void)
    table_de_vote->ajouterPersonne(vp[1]);
    table_de_vote->afficherInfos();
    table_de_vote->sortirPersonne();
-   table_de_vote->afficherInfos();
+   table_de_vote->afficherInfos();*/
 
     // destruction des personnes
    for (Personne* psn : vp)

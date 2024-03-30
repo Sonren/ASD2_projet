@@ -60,15 +60,30 @@ int main(void)
    cout << bol1<< endl;
 
 
-   /*cout << " ---------------Espace--------------" << endl;
-   Espace *table_de_vote = new Espace(2,"table de vote");
+   cout << " ---------------Espace--------------" << endl;
+
+   // Pour générer un nombre aléatoire entre 1 et 10
+   int randomNumber_vote = std::rand() % 10 + 1;
+
+   Espace *table_de_vote = new Espace(randomNumber_vote,"table de vote");
+
+   // Pour générer un nombre aléatoire entre 1 et 10
+   int randomNumber_decharge = std::rand() % 10 + 1;
+
+   Espace *table_de_decharge = new Espace(randomNumber_decharge,"table de décharge");
+   
    table_de_vote->afficherInfos();
    table_de_vote->ajouterPersonne(vp[0]);
    table_de_vote->afficherInfos();
    table_de_vote->ajouterPersonne(vp[1]);
    table_de_vote->afficherInfos();
    table_de_vote->sortirPersonne();
-   table_de_vote->afficherInfos();*/
+   table_de_vote->afficherInfos();
+
+   cout << "decharge" << endl;
+   table_de_decharge->afficherInfos();
+   table_de_decharge->ajouterPersonne(vp[1]);
+   table_de_decharge->afficherInfos();
 
     // destruction des personnes
    for (Personne* psn : vp)

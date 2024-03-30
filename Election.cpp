@@ -142,10 +142,6 @@ bool Election::ajouter_electeur( int deb, int end, Personne* p){
     }
 }
 
-
-
-
-
 void Election::afficher_candidat(){
     for(long unsigned int i = 0; i<this->candidats.size(); i++){
         std::cout << (*this->candidats[i]) << std::endl;

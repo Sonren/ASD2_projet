@@ -9,7 +9,6 @@
 #define FILEATTENTECAPACITE_HPP
 
 
-
 class FileAttenteCapacite : public FileAttente {
 public:
     FileAttenteCapacite(int capacite); /*! Constructeur avec capacité maximale */

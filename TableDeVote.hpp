@@ -12,11 +12,11 @@
 
 class TableDeVote : public Espace {
     public:
-        TableDeVote(const int nb_electeur);
+        TableDeVote(const int De, const std::string& nom,const int nb_elec, float proba);
         void signer_liste(int ID);
         bool a_signer(int ID);
         float getProbaBlanc();
-        void setProbaBlanc();
+        void setProbaBlanc(float p);
 
     private:
         bool* liste_emargement;

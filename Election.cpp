@@ -8,32 +8,20 @@
 #include "Election.hpp"
 #include "Personne.hpp"
 
-Election::Election(const std::string& nom, int nb_electeur){
+Election::Election(const std::string& nom){
     this->nom_election = nom;
     this->candidats = std::vector<Personne*>();
-    this->liste_emargement = new bool[nb_electeur];
-    for(int i = 0; i<=nb_electeur; i++){
-        liste_emargement[i] = false;
-    }
 }
 
-Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, int nb_electeur){
+Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat){
     this->nom_election = nom;
     this->candidats = liste_candidat;
-    this->liste_emargement = new bool[nb_electeur];
-    for(int i = 0; i<=nb_electeur; i++){
-        liste_emargement[i] = false;
-    }
 }
 
-Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Personne*> liste_electeur, int nb_electeur){
+Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Personne*> liste_electeur){
     this->nom_election = nom;
     this->candidats = liste_candidat;
     this->liste_electorale = liste_electeur;
-    this->liste_emargement = new bool[nb_electeur];
-    for(int i = 0; i<=nb_electeur; i++){
-        liste_emargement[i] = false;
-    }
 }
 
 Election::~Election(){
@@ -156,10 +144,4 @@ void Election::afficher_electeur(){
     std::cout << std::endl;
 }
 
-void Election::signer_liste(int ID){
-    this->liste_emargement[ID] = true;
-}
 
-bool Election::a_signer(int ID){
-    return this->liste_emargement[ID] == true;
-}

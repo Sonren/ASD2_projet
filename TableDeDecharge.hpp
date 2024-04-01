@@ -10,11 +10,11 @@
 
 
 
-class tableDeDecharge : public Espace {
+class TableDeDecharge : public Espace {
     public:
-        tableDeDecharge(int nb_electeur);
+        TableDeDecharge(const int De, const std::string& nom,float proba);
         float getProbaBlanc();
-        void setProbaBlanc();
+        void setProbaBlanc(float p);
 
     private:
         float proba_blanc;

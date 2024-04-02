@@ -35,9 +35,11 @@ int main(void)
    };
 
    std::vector<Personne*> ve = {
+      vp[0], vp[1], vp[2], vp[3], vp[4], vp[5], vp[6]
    };
    
    std::vector<Personne*> vc = {
+      vp[5], vp[6], vp[7]
    };
    
    // TODO
@@ -46,8 +48,8 @@ int main(void)
 
   
 
-   Election *presidentielle = new Election("presidentielle", vc, ve, 9);
-   cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
+   Election *presidentielle = new Election("presidentielle", vc, ve);
+   /*cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
    cout << "liste des candidats : " << endl << endl;
    presidentielle->afficher_candidat();
    cout << "liste des electeurs : " << endl << endl;
@@ -57,7 +59,7 @@ int main(void)
    presidentielle->afficher_electeur();
    bool bol1 = presidentielle->ajouter_electeur(0,2,vp[3]);
    presidentielle->afficher_electeur();
-   cout << bol1<< endl;
+   cout << bol1<< endl;*/
 
 
    cout << " ---------------Espace--------------" << endl;
@@ -80,7 +82,7 @@ int main(void)
    table_de_vote->sortirPersonne();
    table_de_vote->afficherInfos();
 
-   cout << "decharge" << endl;
+   cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
    table_de_decharge->ajouterPersonne(vp[1]);
    table_de_decharge->afficherInfos();

@@ -39,6 +39,9 @@ bool FileAttente::estVide() {
 }
 
 void FileAttente::afficherFile(){
+    if(file.empty() == true){
+        std::cout << "La file d'attente est vide" << std::endl;
+    }
     for(auto it = file.begin(); it != file.end(); it++){
         std::cout << *(*it) <<std::endl;
     }

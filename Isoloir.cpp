@@ -8,19 +8,18 @@
 #include "Election.hpp"
 
 
-Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir){
-    persDansIsoloir = new FileAttenteCapacite(nbIsoloir);
-}
+Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir), persDansIsoloir(*(new FileAttenteCapacite(nbIsoloir)))
+{};
 
 Isoloir::~Isoloir() {
     // Libérer les ressources acquises par l'objet persDansIsoloir
     while (!persDansIsoloir.estVide()) {
-        delete persDansIsoloir.sortirElement(); // Supprime la personne pointée par le premier élément de la file d'attente
+        delete persDansIsoloir.defiler(); // Supprime la personne pointée par le premier élément de la file d'attenteoverride
     }
 
     // Libérer les ressources acquises par l'objet fileIsoloir
     while (!fileIsoloir.estVide()) {
-        delete fileIsoloir.sortirElement(); // Supprime la personne pointée par le premier élément de la file d'attente
+        delete fileIsoloir.defiler(); // Supprime la personne pointée par le premier élément de la file d'attente
     }
 }
 

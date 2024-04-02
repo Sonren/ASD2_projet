@@ -5,9 +5,10 @@
 
 #include "FileAttenteCapacite.hpp"
 
-FileAttenteCapacite::FileAttenteCapacite(int capacite) : capaciteMax(capacite) {
+FileAttenteCapacite::FileAttenteCapacite(int capacite) : capaciteMax(capacite) 
+{
     // Constructeur avec capacité maximale
-}
+};
 
 FileAttenteCapacite::~FileAttenteCapacite() {
     // Destructeur
@@ -18,7 +19,7 @@ FileAttenteCapacite::~FileAttenteCapacite() {
     }
 }
 
-void FileAttenteCapacite::enfiler(Personne* pPers) override{
+void FileAttenteCapacite::enfiler(Personne* pPers){
     // Ajoute une personne à la file d'attente
     if (estPleine()) {
         throw std::runtime_error("La file d'attente est pleine"); // Lève une exception si la file d'attente est pleine

@@ -6,6 +6,7 @@
 #include <string>
 #include "Personne.hpp"
 #include "FileAttente.hpp"
+#include<queue>
 
 using namespace elections;
 
@@ -17,7 +18,9 @@ class Espace {
         bool estVide(); /*! Vérifie si l'espace est vide ou non */
         void ajouterPersonne(Personne* persDecharge); /* ajoute une personne à l'espace */
         Personne* sortirPersonne(); /*! sort une personne de l'espace et renvoie cette personne */
+        void afficherQueue() const; 	/*! Affiche la file d'attente */
         void  afficherInfos(); /*Affiche toute les infos sur l'espace (la personne dedans et la duree)*/
+        
 
 
 
@@ -26,5 +29,5 @@ class Espace {
         std::string  nom; /*! Nom de l'espace */
         int De; /*! Durée dans lequel une personne reste dans l'espace */
         Personne* persoEnCours; /*! Personne actuellement dans l'espace, NULL si il n'y a personne */
-        FileAttente fileEspace; /*! File d'attente de l'espace*/
+        std::queue<Personne*> fileEspace; /*! File d'attente de l'espace*/
 };

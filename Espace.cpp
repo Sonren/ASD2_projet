@@ -26,7 +26,7 @@ void Espace::ajouterPersonne(Personne* persDecharge) {
         persoEnCours = persDecharge;
     } else {
         // On place la personne en attente
-        fileEspace.enfiler(persDecharge);
+        fileEspace.push(persDecharge);
     }
 }
 
@@ -36,8 +36,28 @@ Personne* Espace::sortirPersonne() {
         throw std::runtime_error("La Table de décharge est vide");
     } else {
         Personne* pTemp = persoEnCours;
-        persoEnCours = NULL;
+        if(fileEspace.empty()) {
+            persoEnCours = NULL;
+        } else {
+            persoEnCours = fileEspace.front();
+            fileEspace.pop();
+        }
         return pTemp;
+    }
+}
+
+void Espace::afficherQueue() const {
+    if(!fileEspace.empty()) {
+        std::cout << "File d'attente : ";
+        for(auto it = fileEspace.begin(); it != fileEspace.end(); ++it) {
+            (*it)->afficher();
+            if((*it) != *(fileEspace.rbegin())) {
+                std::cout << ", ";
+            }
+        }
+        std::cout << "\n";
+    } else {
+        std::cout << "Aucune personne dans la file d'attente\n";
     }
 }
 
@@ -48,6 +68,6 @@ void Espace::afficherInfos(){
         std::cout << "l'espace  contient une personne : " << *persoEnCours << std::endl ;
         std::cout << "elle doit rester : " << De << " en temps" << std::endl;
         std::cout << "Affichage de la file d'attente : " << std::endl;
-        fileEspace.afficherFile(); 
+        afficherQueue();
     }
 }

@@ -50,7 +50,7 @@ Personne* Isoloir::sortirPersonne() {
 }
 
 
-void Isoloir::afficherInfos() override{
+void Isoloir::afficherInfos(){
     if(estVide()){
         std::cout << "l'espace est vide " << std::endl;
     }else{
@@ -58,7 +58,6 @@ void Isoloir::afficherInfos() override{
         std::cout << "elle doit rester : " << Espace::getDuree() << " en temps" << std::endl;
         std::cout << "Affichage de la premiere personne de la file d'attente : " << std::endl;
         Espace::afficherFirstQueue();
-        std::cout << "coucou" << std::endl;
     }
 }
 

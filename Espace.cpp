@@ -4,8 +4,10 @@
 */
 
 #include "Espace.hpp"
+#include <queue>
 
-Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace(*(new FileAttente())) {}
+Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace(*(new std::queue<Personne*>)) 
+{}
 
 Espace::~Espace() {
     // Libération de la mémoire allouée pour la personne actuellement dans l'espace
@@ -46,15 +48,10 @@ Personne* Espace::sortirPersonne() {
     }
 }
 
-void Espace::afficherQueue() const {
+void Espace::afficherFirstQueue() const {
     if(!fileEspace.empty()) {
         std::cout << "File d'attente : ";
-        for(auto it = fileEspace.begin(); it != fileEspace.end(); ++it) {
-            (*it)->afficher();
-            if((*it) != *(fileEspace.rbegin())) {
-                std::cout << ", ";
-            }
-        }
+        std::cout << " Premiere personne de la file : " << fileEspace.front() << std::endl;
         std::cout << "\n";
     } else {
         std::cout << "Aucune personne dans la file d'attente\n";
@@ -68,7 +65,7 @@ void Espace::afficherInfos(){
         std::cout << "l'espace " << nom <<  " contient une personne : " << *persoEnCours << std::endl ;
         std::cout << "elle doit rester : " << De << " en temps" << std::endl;
         std::cout << "Affichage de la file d'attente : " << std::endl;
-        afficherQueue();
+        afficherFirstQueue();
     }
 }
 
@@ -84,6 +81,6 @@ Personne* Espace::getPersonne(){
     return this->persoEnCours;
 }
 
-FileAttente Espace::getFile(){
+std::queue<Personne*> Espace::getFile(){
     return this->fileEspace;
 }

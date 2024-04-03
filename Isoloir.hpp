@@ -24,7 +24,7 @@ class Isoloir : public Espace{
 
     private :
     int nbIsoloir; /*Nombre d'isoloir différents dans l'esapce Isoloir*/
-    std::queue<Personne*> persDansIsoloir; /* Comme il y a plusieurs personnes dans différents isoloir, on utilise une fileAttenteCapacite*/
+    std::queue<Personne*> listeIsoloir; /* Comme il y a plusieurs personnes dans différents isoloir, on utilise une fileAttenteCapacite*/
     std::queue<Personne*> fileIsoloir; /* Soit la file des personnes qui attendent qu'un isoloir se libère*/
 };
 

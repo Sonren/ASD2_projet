@@ -2,7 +2,7 @@ CC = g++
 CFLAGS=-Wall -std=c++17 -g
 INCLUDES = -I.
 LFLAGS = -lm
-OBJ = main.o Personne.o FileAttente.o Espace.o Election.o Bulletin.o FileAttenteCapacite.o Electeur.o TableDeDecharge.o TableDeVote.o
+OBJ = main.o Personne.o FileAttente.o Espace.o Election.o Bulletin.o FileAttenteCapacite.o Electeur.o TableDeDecharge.o TableDeVote.o Isoloir.o
 TARGET = main
 
 all: $(TARGET)
@@ -12,7 +12,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 
-main.o: main.cpp Personne.hpp FileAttente.hpp Espace.hpp Election.hpp Bulletin.hpp FileAttenteCapacite.hpp Electeur.hpp TableDeDecharge.hpp TableDeVote.hpp
+main.o: main.cpp Personne.hpp FileAttente.hpp Espace.hpp Election.hpp Bulletin.hpp FileAttenteCapacite.hpp Electeur.hpp TableDeDecharge.hpp TableDeVote.hpp Isoloir.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.cpp -o main.o
 
 Personne.o: Personne.cpp Personne.hpp
@@ -26,9 +26,6 @@ Espace.o: Espace.cpp Espace.hpp
 
 Election.o: Election.cpp Election.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c Election.cpp -o Election.o
-
-FileAttente.o: FileAttente.cpp FileAttente.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttente.cpp -o FileAttente.o
 
 FileAttenteCapacite.o: FileAttenteCapacite.cpp FileAttenteCapacite.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c FileAttenteCapacite.cpp -o FileAttenteCapacite.o

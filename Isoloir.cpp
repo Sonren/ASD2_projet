@@ -8,7 +8,7 @@
 #include "Election.hpp"
 
 
-Isoloir::Isoloir(const int Di, const std::string& nom, int nbIsoloir) : nom(nom), Di(Di), nbIsoloir(nbIsoloir), persDansIsoloir(*(new FileAttenteCapacite(nbIsoloir)))
+Isoloir::Isoloir(const int De, const std::string& nom, int nbIsoloir) : Espace(De, nom), nbIsoloir(nbIsoloir), persDansIsoloir(*(new FileAttenteCapacite(nbIsoloir)))
 {};
 
 Isoloir::~Isoloir() {
@@ -16,21 +16,16 @@ Isoloir::~Isoloir() {
     while (!persDansIsoloir.estVide()) {
         delete persDansIsoloir.defiler(); // Supprime la personne pointée par le premier élément de la file d'attenteoverride
     }
-
-    // Libérer les ressources acquises par l'objet fileIsoloir
-    while (!fileIsoloir.estVide()) {
-        delete fileIsoloir.defiler(); // Supprime la personne pointée par le premier élément de la file d'attente
-    }
 }
 
 
 bool Isoloir::estVide(){
-    return persDansIsoloir.estVide() && fileIsoloir.estVide();
+    return persDansIsoloir.estVide() && Espace::getFile().estVide();
 }
 
 void Isoloir::ajouterPersonne(Personne* persIsoloir) {
     if (persDansIsoloir.estPleine()) {
-        Isoloir::fileIsoloir.enfiler(persIsoloir);
+        Espace::getFile().enfiler(persIsoloir);
     } else {
         persDansIsoloir.enfiler(persIsoloir);
     }
@@ -45,5 +40,16 @@ Personne* Isoloir::sortirPersonne() {
     }
 }
 
+
+void Isoloir::afficherInfos(){
+        if(estVide()){
+        std::cout << "l'espace est vide " << std::endl;
+    }else{
+        std::cout << "l'espace " << Espace::getNom() <<  " contient une personne : " << Espace::getPersonne() << std::endl ;
+        std::cout << "elle doit rester : " << Espace::getDuree() << " en temps" << std::endl;
+        std::cout << "Affichage de la file d'attente : " << std::endl;
+        Espace::getFile().afficherFile(); 
+    }
+}
 
 

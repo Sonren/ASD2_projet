@@ -10,6 +10,7 @@
 #include "Personne.hpp"
 #include "Election.hpp"
 #include "Espace.hpp"
+#include "Isoloir.hpp"
 
 using namespace std;
 using namespace elections;
@@ -73,6 +74,13 @@ int main(void)
    int randomNumber_decharge = std::rand() % 10 + 1;
 
    Espace *table_de_decharge = new Espace(randomNumber_decharge,"table de décharge");
+
+   // Pour générer un nombre aléatoire entre 1 et 10
+   int randomNumber_isoloir = std::rand() % 10 + 1;
+
+   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"table de décharge", 3);
+
+
    
    table_de_vote->afficherInfos();
    table_de_vote->ajouterPersonne(vp[0]);
@@ -86,6 +94,10 @@ int main(void)
    table_de_decharge->afficherInfos();
    table_de_decharge->ajouterPersonne(vp[1]);
    table_de_decharge->afficherInfos();
+
+   cout << endl << "--------Isoloir-----" << endl;
+   isoloir->ajouterPersonne(vp[1]);
+   isoloir->afficherInfos();
 
     // destruction des personnes
    for (Personne* psn : vp)

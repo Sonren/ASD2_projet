@@ -5,7 +5,7 @@
 
 #include "Espace.hpp"
 
-Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace() {}
+Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace(*(new FileAttente())) {}
 
 Espace::~Espace() {
     // Libération de la mémoire allouée pour la personne actuellement dans l'espace
@@ -45,9 +45,25 @@ void Espace::afficherInfos(){
     if(estVide()){
         std::cout << "l'espace est vide " << std::endl;
     }else{
-        std::cout << "l'espace  contient une personne : " << *persoEnCours << std::endl ;
+        std::cout << "l'espace " << nom <<  " contient une personne : " << *persoEnCours << std::endl ;
         std::cout << "elle doit rester : " << De << " en temps" << std::endl;
         std::cout << "Affichage de la file d'attente : " << std::endl;
         fileEspace.afficherFile(); 
     }
+}
+
+std::string Espace::getNom(){
+    return this->nom;
+}
+
+int Espace::getDuree(){
+    return this->De;
+}
+
+Personne* Espace::getPersonne(){
+    return this->persoEnCours;
+}
+
+FileAttente Espace::getFile(){
+    return this->fileEspace;
 }

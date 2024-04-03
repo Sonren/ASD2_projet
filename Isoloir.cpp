@@ -9,7 +9,9 @@
 
 
 Isoloir::Isoloir(const int De, const std::string& nom, int nbIsoloir) : Espace(De, nom), nbIsoloir(nbIsoloir), listeIsoloir(*(new std::queue<Personne*>))
-{}
+{
+    Espace::setPersonne(listeIsoloir.front());
+}
 
 Isoloir::~Isoloir() {
     // Libérer les ressources acquises par l'objet persDansIsoloir
@@ -54,7 +56,7 @@ void Isoloir::afficherInfos(){
     if(estVide()){
         std::cout << "l'espace est vide " << std::endl;
     }else{
-        std::cout << "l'espace " << Espace::getNom() <<  " contient une personne : " << Espace::getPersonne() << std::endl ;
+        std::cout << "l'espace " << Espace::getNom() <<  " a pour premiere personne : " << *(listeIsoloir.front()) << std::endl ;
         std::cout << "elle doit rester : " << Espace::getDuree() << " en temps" << std::endl;
         std::cout << "Affichage de la premiere personne de la file d'attente : " << std::endl;
         Espace::afficherFirstQueue();

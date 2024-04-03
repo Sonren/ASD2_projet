@@ -27,6 +27,7 @@ class Espace {
         int getDuree();
         Personne* getPersonne();
         std::queue<Personne*> getFile();
+        void setPersonne(Personne* ptrPersonne);
         
 
 

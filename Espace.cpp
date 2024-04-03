@@ -50,8 +50,7 @@ Personne* Espace::sortirPersonne() {
 
 void Espace::afficherFirstQueue() const {
     if(!fileEspace.empty()) {
-        std::cout << "File d'attente : ";
-        std::cout << " Premiere personne de la file : " << fileEspace.front() << std::endl;
+        std::cout << " Premiere personne de la file : " << *(fileEspace.front()) << std::endl;
         std::cout << "\n";
     } else {
         std::cout << "Aucune personne dans la file d'attente\n";
@@ -83,4 +82,8 @@ Personne* Espace::getPersonne(){
 
 std::queue<Personne*> Espace::getFile(){
     return this->fileEspace;
+}
+
+void Espace::setPersonne(Personne* ptrPersonne){
+    this->persoEnCours = ptrPersonne;
 }

@@ -11,6 +11,8 @@
 #include "Election.hpp"
 #include "Espace.hpp"
 #include "Isoloir.hpp"
+#include "TableDeDecharge.hpp"
+#include "TableDeVote.hpp"
 
 using namespace std;
 using namespace elections;
@@ -68,17 +70,17 @@ int main(void)
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_vote = std::rand() % 10 + 1;
 
-   Espace *table_de_vote = new Espace(randomNumber_vote,"table de vote");
+   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", 10, 0.3);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_decharge = std::rand() % 10 + 1;
 
-   Espace *table_de_decharge = new Espace(randomNumber_decharge,"table de décharge");
+   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge",0.3);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_isoloir = std::rand() % 10 + 1;
 
-   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"table de décharge", 3);
+   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"isoloir", 3);
 
 
    

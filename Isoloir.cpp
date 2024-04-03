@@ -20,14 +20,14 @@ Isoloir::~Isoloir() {
 
 
 bool Isoloir::estVide(){
-    return persDansIsoloir.estVide() && Espace::getFile().estVide();
+    return persDansIsoloir.empty()
 }
 
-void Isoloir::ajouterPersonne(Personne* persIsoloir) {
-    if (persDansIsoloir.estPleine()) {
-        Espace::getFile().enfiler(persIsoloir);
+void Isoloir::ajouterPersonne(Personne* pers) {
+    if (persDansIsoloir.size()>=nbIsoloir) {
+        Isoloir::fileIsoloir.push(persIsoloir);
     } else {
-        persDansIsoloir.enfiler(persIsoloir);
+        persDansIsoloir.push(pers);
     }
 }
 
@@ -35,7 +35,15 @@ Personne* Isoloir::sortirPersonne() {
     if(estVide()) {
         throw std::runtime_error("L'Espace d'isoloir est vide");
     } else {
-        Personne* pTemp = persDansIsoloir.defiler();
+        Personne* pTemp = persDansIsoloir.front();//La personne à faire sortir
+        Personne* pAttente;// La personne  qui attendait la place de pTemp
+        persDansIsoloir.pop();
+        /* Si il y a une personne en attente, on l'a fait rentrer dans l'isoloir */
+        if(!fileIsoloir.empty()) {
+            pAttente=fileIsoloir.front();
+            fileIsoloir.pop();
+            persDansIsoloir.push(pAttente);
+        }
         return pTemp;
     }
 }

@@ -6,13 +6,13 @@
 #include "Espace.hpp"
 #include <queue>
 
-Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), persoEnCours(nullptr), fileEspace(*(new std::queue<Personne*>)) 
+Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), electeurEnCours(nullptr), fileEspace(*(new std::queue<Electeur*>)) 
 {}
 
 Espace::~Espace() {
     // Libération de la mémoire allouée pour la personne actuellement dans l'espace
-    if (persoEnCours != nullptr) {
-        delete persoEnCours;
+    if (electeurEnCours != nullptr) {
+        delete electeurEnCours;
     }
 
     // Aucune libération de mémoire n'est nécessaire pour la file d'attente,
@@ -20,31 +20,31 @@ Espace::~Espace() {
 }
 
 bool Espace::estVide() {
-    return persoEnCours == NULL;
+    return electeurEnCours == NULL;
 }
 
-void Espace::ajouterPersonne(Personne* persDecharge) {
+void Espace::ajouterElecteur(Electeur* elecDecharge) {
     if(estVide()) {
-        persoEnCours = persDecharge;
+        electeurEnCours = elecDecharge;
     } else {
         // On place la personne en attente
-        fileEspace.push(persDecharge);
+        fileEspace.push(elecDecharge);
     }
 }
 
-Personne* Espace::sortirPersonne() {
+Electeur* Espace::sortirElecteur() {
 
     if(estVide()) {
         throw std::runtime_error("La Table de décharge est vide");
     } else {
-        Personne* pTemp = persoEnCours;
+        Electeur* eTemp = electeurEnCours;
         if(fileEspace.empty()) {
-            persoEnCours = NULL;
+            electeurEnCours = NULL;
         } else {
-            persoEnCours = fileEspace.front();
+            electeurEnCours = fileEspace.front();
             fileEspace.pop();
         }
-        return pTemp;
+        return eTemp;
     }
 }
 
@@ -61,7 +61,7 @@ void Espace::afficherInfos(){
     if(estVide()){
         std::cout << "l'espace est vide " << std::endl;
     }else{
-        std::cout << "l'espace " << nom <<  " contient une personne : " << *persoEnCours << std::endl ;
+        std::cout << "l'espace " << nom <<  " contient une personne : " << *electeurEnCours << std::endl ;
         std::cout << "elle doit rester : " << De << " en temps" << std::endl;
         std::cout << "Affichage de la file d'attente : " << std::endl;
         afficherFirstQueue();
@@ -69,21 +69,21 @@ void Espace::afficherInfos(){
 }
 
 std::string Espace::getNom(){
-    return this->nom;
+    return nom;
 }
 
 int Espace::getDuree(){
-    return this->De;
+    return De;
 }
 
-Personne* Espace::getPersonne(){
-    return this->persoEnCours;
+Electeur* Espace::getElecteurEnCours(){
+    return electeurEnCours;
 }
 
-std::queue<Personne*> Espace::getFile(){
-    return this->fileEspace;
+std::queue<Electeur*> Espace::getFile(){
+    return fileEspace;
 }
 
-void Espace::setPersonne(Personne* ptrPersonne){
-    this->persoEnCours = ptrPersonne;
+void Espace::setElecteurEnCours(Electeur* ptrElecteur){
+    electeurEnCours = ptrElecteur;
 }

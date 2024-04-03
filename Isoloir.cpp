@@ -4,13 +4,13 @@
 */
 
 #include "Isoloir.hpp"
-#include "Personne.hpp"
+#include "Electeur.hpp"
 #include "Election.hpp"
 
 
-Isoloir::Isoloir(const int De, const std::string& nom, int nbIsoloir) : Espace(De, nom), nbIsoloir(nbIsoloir), listeIsoloir(*(new std::queue<Personne*>))
+Isoloir::Isoloir(const int De, const std::string& nom, int nbIsoloir) : Espace(De, nom), nbIsoloir(nbIsoloir), listeIsoloir(*(new std::queue<Electeur*>))
 {
-    Espace::setPersonne(listeIsoloir.front());
+    Espace::setElecteurEnCours(listeIsoloir.front());
 }
 
 Isoloir::~Isoloir() {
@@ -26,28 +26,28 @@ bool Isoloir::estVide(){
     return listeIsoloir.empty();
 }
 
-void Isoloir::ajouterPersonne(Personne* pers) {
+void Isoloir::ajouterElecteur(Electeur* elec) {
     if (listeIsoloir.size()>=nbIsoloir) {
-        Espace::getFile().push(Espace::getPersonne());
+        Espace::getFile().push(Espace::getElecteurEnCours());
     } else {
-        listeIsoloir.push(pers);
+        listeIsoloir.push(elec);
     }
 }
 
-Personne* Isoloir::sortirPersonne() {
+Electeur* Isoloir::sortirElecteur() {
     if(estVide()) {
         throw std::runtime_error("L'Espace d'isoloir est vide");
     } else {
-        Personne* pTemp = listeIsoloir.front();//La personne à faire sortir
-        Personne* pAttente;// La personne  qui attendait la place de pTemp
+        Electeur* eTemp = listeIsoloir.front();//La personne à faire sortir
+        Electeur* eAttente;// La personne  qui attendait la place de pTemp
         listeIsoloir.pop();
         /* Si il y a une personne en attente, on l'a fait rentrer dans l'isoloir */
         if(!Espace::getFile().empty()) {
-            pAttente=Espace::getFile().front();
+            eAttente=Espace::getFile().front();
             Espace::getFile().pop();
-            listeIsoloir.push(pAttente);
+            listeIsoloir.push(eAttente);
         }
-        return pTemp;
+        return eTemp;
     }
 }
 

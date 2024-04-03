@@ -11,10 +11,10 @@ TableDeDecharge::TableDeDecharge(const int De, const std::string& nom,float prob
 
 
 float TableDeDecharge::getProbaBlanc(){
-    return this->proba_blanc;
+    return proba_blanc;
 }
 
 
 void TableDeDecharge::setProbaBlanc(float p){
-    this->proba_blanc = p;
+    proba_blanc = p;
 }

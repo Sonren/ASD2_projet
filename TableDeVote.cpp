@@ -15,17 +15,17 @@ TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec,
 };
 
 void TableDeVote::signer_liste(int ID){
-    this->liste_emargement[ID] = true;
+    liste_emargement[ID] = true;
 }
 
 bool TableDeVote::a_signer(int ID){
-    return this->liste_emargement[ID] == true;
+    return liste_emargement[ID] == true;
 }
 
 float TableDeVote::getProbaBlanc(){
-    return this->proba_null;
+    return proba_null;
 }
         
 void TableDeVote::setProbaBlanc(float p){
-    this->proba_null = p;
+    proba_null = p;
 }

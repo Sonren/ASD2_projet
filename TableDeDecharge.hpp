@@ -18,10 +18,6 @@ class TableDeDecharge : public Espace {
 
     private:
         float proba_blanc;
-
-
-
-
 };
 
 #endif

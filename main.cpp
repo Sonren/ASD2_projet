@@ -85,20 +85,20 @@ int main(void)
 
    
    table_de_vote->afficherInfos();
-   table_de_vote->ajouterPersonne(vp[0]);
+   table_de_vote->ajouterElecteur(vp[0]);
    table_de_vote->afficherInfos();
-   table_de_vote->ajouterPersonne(vp[1]);
+   table_de_vote->ajouterElecteur(vp[1]);
    table_de_vote->afficherInfos();
-   table_de_vote->sortirPersonne();
+   table_de_vote->sortirElecteur();
    table_de_vote->afficherInfos();
 
    cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
-   table_de_decharge->ajouterPersonne(vp[1]);
+   table_de_decharge->ajouterElecteur(vp[1]);
    table_de_decharge->afficherInfos();
 
    cout << endl << "--------Isoloir-----" << endl;
-   isoloir->ajouterPersonne(vp[1]);
+   isoloir->ajouterElecteur(vp[1]);
    isoloir->afficherInfos();
 
     // destruction des personnes

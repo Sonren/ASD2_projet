@@ -22,7 +22,7 @@ class Espace {
         void ajouterPersonne(Personne* persDecharge); /* ajoute une personne à l'espace */
         Personne* sortirPersonne(); /*! sort une personne de l'espace et renvoie cette personne */
         void afficherFirstQueue() const; 	/*! Affiche la file d'attente */
-        virtual void  afficherInfos(); /*Affiche toute les infos sur l'espace (la personne dedans et la duree)*/
+        virtual void afficherInfos(); /*Affiche toute les infos sur l'espace (la personne dedans et la duree)*/
         std::string getNom();
         int getDuree();
         Personne* getPersonne();

@@ -12,31 +12,57 @@
 
 using namespace elections;
 
+// Déclaration de la classe Espace
 class Espace {
-    public :
-
-        Espace(const int De, const std::string& nom); /*! constructeur*/
-        ~Espace(); /*! Destructeur */
-        bool estVide(); /*! Vérifie si l'espace est vide ou non */
-        void ajouterElecteur(Electeur* persDecharge); /* ajoute une personne à l'espace */
-        Electeur* sortirElecteur(); /*! sort une personne de l'espace et renvoie cette personne */
-        void afficherFirstQueue() const; 	/*! Affiche la file d'attente */
-        virtual void afficherInfos(); /*Affiche toute les infos sur l'espace (la personne dedans et la duree)*/
-        std::string getNom();
-        int getDuree();
-        Electeur* getElecteurEnCours();
-        std::queue<Electeur*> getFile();
-        void setElecteurEnCours(Electeur* ptrElecteur);
+    public:
+        // Constructeur prenant en paramètres le nombre de dés et le nom de l'espace
+        Espace(const int De, const std::string& nom);
         
+        // Destructeur
+        ~Espace();
+        
+        // Vérifie si l'espace est vide ou non
+        bool estVide();
+        
+        // Ajoute une personne à l'espace
+        void ajouterElecteur(Electeur* persDecharge);
+        
+        // Sort une personne de l'espace et renvoie cette personne
+        Electeur* sortirElecteur();
+        
+        // Affiche la file d'attente
+        void afficherFirstQueue() const;
+        
+        // Affiche toutes les infos sur l'espace (la personne dedans et la durée)
+        virtual void afficherInfos();
+        
+        // Renvoie le nom de l'espace
+        std::string getNom();
+        
+        // Renvoie la durée dans laquelle une personne reste dans l'espace
+        int getDuree();
+        
+        // Renvoie la personne actuellement dans l'espace
+        Electeur* getElecteurEnCours();
+        
+        // Renvoie la file d'attente de l'espace
+        std::queue<Electeur*> getFile();
+        
+        // Définit la personne actuellement dans l'espace
+        void setElecteurEnCours(Electeur* ptrElecteur);
 
-
-
-    private : 
-
-        std::string  nom; /*! Nom de l'espace */
-        int De; /*! Durée dans lequel une personne reste dans l'espace */
-        Electeur* electeurEnCours; /*! Personne actuellement dans l'espace, NULL si il n'y a personne */
-        std::queue<Electeur*> fileEspace; /*! File d'attente de l'espace*/
+    private:
+        // Nom de l'espace
+        std::string nom;
+        
+        // Durée dans laquelle une personne reste dans l'espace
+        int De;
+        
+        // Personne actuellement dans l'espace, NULL si il n'y a personne
+        Electeur* electeurEnCours;
+        
+        // File d'attente de l'espace
+        std::queue<Electeur*> fileEspace;
 };
 
 #endif

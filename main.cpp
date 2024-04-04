@@ -70,12 +70,12 @@ int main(void)
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_vote = std::rand() % 10 + 1;
 
-   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", 10, 0.3);
+   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", 10);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_decharge = std::rand() % 10 + 1;
 
-   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge",0.3);
+   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge",0.35,0.15);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_isoloir = std::rand() % 10 + 1;

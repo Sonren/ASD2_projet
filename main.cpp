@@ -10,12 +10,19 @@
 #include "Personne.hpp"
 #include "Election.hpp"
 #include "Espace.hpp"
+#include "Electeur.hpp"
 #include "Isoloir.hpp"
 #include "TableDeDecharge.hpp"
 #include "TableDeVote.hpp"
 
 using namespace std;
 using namespace elections;
+
+// La fonction qui crée un pointeur vers un électeur à partir d'un pointeur vers une personne
+Electeur* PersonneToElecteur (elections::Personne* pers) {
+   // On crée un nouvel électeur en utilisant les informations de la personne donnée
+   return new Electeur(&pers.nom, &pers.prenom, &pers.spol(), 0);
+}
 
 int main(void)
 {
@@ -44,6 +51,9 @@ int main(void)
    std::vector<Personne*> vc = {
       vp[5], vp[6], vp[7]
    };
+
+
+   
    
    // TODO
    // Code de simulation dans lequel on manipulera les personnes

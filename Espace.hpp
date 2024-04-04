@@ -8,7 +8,6 @@
 
 #include <string>
 #include "Electeur.hpp"
-#include "FileAttente.hpp"
 #include <queue>
 
 using namespace elections;

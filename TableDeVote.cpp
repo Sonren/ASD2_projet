@@ -5,7 +5,7 @@
 
 #include "TableDeVote.hpp"
 
-TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec)
+TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec, const vector<Personne*> liste_candidats)
     : Espace(De, nom), nb_electeur(nb_elec), liste_emargement(new bool[nb_elec])
 {
     for (int i = 0; i < nb_elec; i++) {
@@ -13,7 +13,7 @@ TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec)
     }
 
     //Boucle qui rempli l'urne avec les différents candidats
-    for (Personne* pers : listes_candidats) {
+    for (Personne* pers : liste_candidats) {
         //Chaque candidat commence avec 0 vote en sa faveur
         urne.insert(std::make_pair(pers,0));
     }
@@ -24,7 +24,7 @@ void TableDeVote::signer_liste(int ID){
 }
 
 bool TableDeVote::a_signer(int ID){
-    return liste_emargement[ID] == true;
+    return liste_emargement[ID];
 }
 
 void TableDeVote::vote() {

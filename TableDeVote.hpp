@@ -4,7 +4,7 @@
 */
 
 #include "Espace.hpp"
-#include "Personne"
+#include "Personne.hpp"
 
 #ifndef TABLEDEVOTE_HPP
 #define TABLEDEVOTE_HPP

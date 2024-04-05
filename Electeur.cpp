@@ -11,21 +11,21 @@ Electeur::Electeur(const std::string& nom, const std::string& prenom, int spol,i
 {};
 
 int Electeur::getDuree(){
-    return this->duree_espace;
+    return duree_espace;
 }
     
 void Electeur::steDuree(int d){
-    this->duree_espace = d;
+    duree_espace = d;
 }
     
 elections::Personne* Electeur::getChoix(){
-    return this->choix_vote;
+    return choix_vote;
 }
    
 void Electeur::setChoix(elections::Personne* p){
-    this->choix_vote = p;
+    choix_vote = p;
 }
 
 void Electeur::ajouterBulletin(Personne* bult){
-    this->liste_bulletin.push_back(bult);
+    liste_bulletin.push_back(bult);
 }

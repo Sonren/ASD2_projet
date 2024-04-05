@@ -4,6 +4,7 @@
 */
 
 #include "TableDeDecharge.hpp"
+#include "Election.hpp"
 #include <cstdlib> 
 
 TableDeDecharge::TableDeDecharge(const int De, const std::string& nom,float probaB, float probaN)
@@ -29,10 +30,16 @@ void TableDeDecharge::setProbaNull(float p){
 }
 
 void TableDeDecharge::prendreBulletin(Electeur elec){
-    float RandomVote = = ((double)rand() / RAND_MAX);
+    float nbBulletinAPrendre = rand() % Election::getListeCandidats().size() + 1;
+    float RandomChoixVote = rand() % 10 + 1;
     if(RandomVote <= proba_null){
-        //vprendre bulletin null
+        //prendre + proche et prendre blanc
+        elec.ajouterBulletin(Election::ajouter_candidat(Election::getListeCandidats()[3]))
+        elec.setChoix = NULL;   
     }else if(RandomVote <= proba_blanc){
-        //prendre bulletin blanc
+        //prendre + proche et prendre blanc
+        elec.setChoix = Election::ajouter_candidat(Election::getListeCandidats()[3]);
+    }else{
+        //prendre les plus proche
     }
 }

@@ -33,6 +33,9 @@ public:
     
     // Définit le nom de l'élection
     void setNom(std::string nom_election);
+
+    //Renvoie la liste des candidats
+    std::vector<Personne*>  getListeCandidats();
     
     // Ajoute un candidat à la liste des candidats
     void ajouter_candidat(Personne* p);
@@ -51,6 +54,7 @@ public:
     
     // Affiche la liste des électeurs
     void afficher_electeur();
+
 
 private:
     // Nom de l'élection

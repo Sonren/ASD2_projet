@@ -36,6 +36,10 @@ void Election::setNom(std::string new_nom){
     this->nom_election = new_nom;
 }
 
+std::vector<Personne*>  Election::getListeCandidats(){
+    return this->candidats;
+}
+
 void Election::ajouter_candidat(Personne* p){
     this->candidats.push_back(p);
 }
@@ -85,7 +89,7 @@ bool Election::est_sur_liste(int deb, int end , Personne* p){
  * @return true si l'électeur a été ajouté avec succès, false sinon.
  */
 // Fonction pour ajouter un électeur dans la liste électorale
-bool ajouter_electeur(int deb, int end, Personne* p) {
+bool Election::ajouter_electeur(int deb, int end, Personne* p) {
     // Comparateur pour la comparaison alphabétique
     Personne::CompAlpha cmp;
     

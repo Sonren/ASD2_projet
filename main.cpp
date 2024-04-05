@@ -41,7 +41,8 @@ int main(void)
       new Personne("G", "yap", 3),
       new Personne("X", "nel", 5),
       new Personne("Y", "rik", 2),
-      new Personne("Z", "pat", 8)
+      new Personne("Z", "pat", 8),
+      new Personne (" ", "blanc", 0) //represente le vote blanc
    };
 
    std::vector<Personne*> ve = {
@@ -49,7 +50,7 @@ int main(void)
    };
    
    std::vector<Personne*> vc = {
-      vp[5], vp[6], vp[7]
+      vp[5], vp[6], vp[7], vp[8]
    };
 
 

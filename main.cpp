@@ -21,7 +21,7 @@ using namespace elections;
 // La fonction qui crée un pointeur vers un électeur à partir d'un pointeur vers une personne
 Electeur* PersonneToElecteur (elections::Personne* pers) {
    // On crée un nouvel électeur en utilisant les informations de la personne donnée
-   return new Electeur(&pers.nom, &pers.prenom, &pers.spol(), 0);
+   return new Electeur(pers->nom(), pers->prenom(), pers->.spol(), 0);
 }
 
 int main(void)

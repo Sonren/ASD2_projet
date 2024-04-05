@@ -2,7 +2,7 @@ CC = g++
 CFLAGS=-Wall -std=c++17 -g
 INCLUDES = -I.
 LFLAGS = -lm
-OBJ = main.o Personne.o Espace.o Election.o Bulletin.o Electeur.o TableDeDecharge.o TableDeVote.o Isoloir.o
+OBJ = main.o Personne.o Espace.o Election.o Electeur.o TableDeDecharge.o TableDeVote.o Isoloir.o
 TARGET = main
 
 all: $(TARGET)
@@ -12,7 +12,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
 
 
-main.o: main.cpp Personne.hpp Espace.hpp Election.hpp Bulletin.hpp Electeur.hpp TableDeDecharge.hpp TableDeVote.hpp Isoloir.hpp
+main.o: main.cpp Personne.hpp Espace.hpp Election.hpp Electeur.hpp TableDeDecharge.hpp TableDeVote.hpp Isoloir.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.cpp -o main.o
 
 Personne.o: Personne.cpp Personne.hpp
@@ -29,9 +29,6 @@ Isoloir.o: Isoloir.cpp Isoloir.hpp
 
 Bulletin.o: Bulletin.cpp Bulletin.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c Bulletin.cpp -o Bulletin.o
-
-Electeur.o: Electeur.cpp Electeur.hpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c Electeur.cpp -o Electeur.o
 
 TableDeDecharge.o: TableDeDecharge.cpp TableDeDecharge.hpp
 	$(CC) $(CFLAGS) $(INCLUDES) -c TableDeDecharge.cpp -o TableDeDecharge.o

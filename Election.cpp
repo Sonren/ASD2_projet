@@ -91,9 +91,7 @@ bool ajouter_electeur(int deb, int end, Personne* p) {
     
     bool a_été_ajouté; // Variable pour indiquer si l'électeur a été ajouté avec succès
     int mediane; // Indice médian de la plage de recherche
-    
-    std::cout << "coucou" << std::endl; // Message de débogage
-    
+        
     // Vérification des bornes de recherche
     if (deb > end) {
         std::cout << "les valeurs de début et fin sont incorrects " << std::endl;

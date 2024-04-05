@@ -4,7 +4,6 @@
 */
 
 #include "Personne.hpp"
-#include "Bulletin.hpp"
 #include <vector>
 
 
@@ -32,11 +31,11 @@ class Electeur : public elections::Personne {
     void setChoix(elections::Personne* p);
     
     // Déclaration de la méthode ajouterBulletin() pour ajouter un bulletin de vote
-    void ajouterBulletin(Bulletin* bult);
+    void ajouterBulletin(Personne* bult);
 
     private:
 
-    std::vector<Bulletin*> liste_bulletin; //la liste des bulletins qu'il prends dans la table de décharge
+    std::vector<Personne*> liste_bulletin; //la liste des bulletins qu'il prends dans la table de décharge
     int duree_espace; //Durée où l'élécteur doit rester dans l'espace
     elections::Personne* choix_vote; //Pointe vers le candidat choisis 
 

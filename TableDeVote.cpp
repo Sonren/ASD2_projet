@@ -12,6 +12,12 @@ TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec)
     for (int i = 0; i < nb_elec; i++) {
         liste_emargement[i] = false;
     }
+
+    //Boucle qui rempli l'urne avec les différents candidats
+    for (Personne* pers : listes_candidats) {
+        //Chaque candidat commence avec 0 vote en sa faveur
+        urne.insert(std::make_pair(pers,0));
+    }
 };
 
 void TableDeVote::signer_liste(int ID){
@@ -20,5 +26,8 @@ void TableDeVote::signer_liste(int ID){
 
 bool TableDeVote::a_signer(int ID){
     return liste_emargement[ID] == true;
+}
+
+void TableDeVote::vote() {
 }
 

@@ -30,6 +30,8 @@ class TableDeDecharge : public Espace {
         // Fonction pour enregistrer le bulletin d'un électeur
         void prendreBulletin(Electeur elec);
 
+        //
+
     private:
         // Probabilité de bulletins blancs
         float proba_blanc;

@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "Personne.hpp"
+#include "Electeur.hpp"
 
 
 #ifndef ELECTION_HPP
@@ -38,7 +39,7 @@ public:
     std::vector<Personne*>  getListeCandidats();
     
     // Ajoute un candidat à la liste des candidats
-    void ajouter_candidat(Personne* p);
+    void ajouter_candidat(int deb, int end, Personne* p);
     
     // Retire un candidat de la liste des candidats par son ID
     void retirer_candidat(int id);
@@ -46,11 +47,11 @@ public:
     // Affiche la liste des candidats
     void afficher_candidat();
     
-    // Vérifie si une personne est sur la liste des candidats ou des électeurs entre deux indices
-    bool est_sur_liste(int deb, int end, Personne* p);
+    // Vérifie si une personne est sur la liste des électeurs entre deux indices
+    bool est_sur_liste(int deb, int end, Electeur* p);
     
     // Ajoute un électeur à la liste électorale entre deux indices
-    bool ajouter_electeur(int deb, int end, Personne* p);
+    bool ajouter_electeur(int deb, int end, Electeur* e);
     
     // Affiche la liste des électeurs
     void afficher_electeur();
@@ -64,7 +65,7 @@ private:
     std::vector<Personne*> candidats;
     
     // Liste électorale
-    std::vector<Personne*> liste_electorale;
+    std::vector<Electeur*> liste_electorale;
 };
 
 #endif

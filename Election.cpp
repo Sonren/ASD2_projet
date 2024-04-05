@@ -18,7 +18,7 @@ Election::Election(const std::string& nom, std::vector <Personne*> liste_candida
     this->candidats = liste_candidat;
 }
 
-Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Personne*> liste_electeur){
+Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Electeur*> liste_electeur){
     this->nom_election = nom;
     this->candidats = liste_candidat;
     this->liste_electorale = liste_electeur;
@@ -40,11 +40,65 @@ std::vector<Personne*>  Election::getListeCandidats(){
     return this->candidats;
 }
 
-void Election::ajouter_candidat(Personne* p){
-    this->candidats.push_back(p);
+void Election::ajouter_candidat(int deb, int end, Personne* p){
+    // Comparateur pour la comparaison alphabétique
+    Personne::CompAlpha cmp;
+    
+    bool a_été_ajouté; // Variable pour indiquer si l'électeur a été ajouté avec succès
+    int mediane; // Indice médian de la plage de recherche
+        
+    // Vérification des bornes de recherche
+    if (deb > end) {
+        std::cout << "les valeurs de début et fin sont incorrects " << std::endl;
+        return a_été_ajouté = false; // Retourne false si les bornes sont incorrectes
+    }
+    
+    // Cas de base : Liste vide
+    if (candidats.empty()) {
+        candidats.push_back(p); // Ajoute la personne à la liste
+        return a_été_ajouté = true; // Retourne true car l'électeur a été ajouté
+    }
+    
+    // Calcul de l'indice médian
+    mediane = (end + deb) / 2;
+    
+    // Comparaison avec l'élément médian de la liste
+    if (cmp.operator()(p, candidats[mediane])) { // Si la personne est "inférieure" à l'élément médian
+        // Cas où la personne doit être insérée avant l'élément médian
+        if (mediane == deb) {
+            candidats.insert(candidats.begin(), p); // Insère la personne au début de la liste
+            std::cout << "le candidat a été ajouté avec succès " << std::endl;
+            return a_été_ajouté = true;
+        }
+        if (!cmp.operator()(p, candidats[mediane - 1])) {
+            candidats.insert(candidats.begin() + mediane - 1, p); // Insère la personne à l'indice médian - 1
+            std::cout << "le candidat a été ajouté avec succès " << std::endl;
+            return a_été_ajouté = true;
+        } else {
+            // Recherche récursive dans la première moitié de la liste
+            ajouter_candidat(deb, mediane - 1, p);
+        }
+    } else { // Si la personne est "supérieure" à l'élément médian
+        // Cas où la personne doit être insérée après l'élément médian
+        if (mediane == end) {
+            candidats.insert(candidats.begin() + mediane + 1, p); // Insère la personne à la fin de la liste
+            std::cout << "le candidat a été ajouté avec succès " << std::endl;
+            return a_été_ajouté = true;
+        }
+        if (!cmp.operator()(p, candidats[mediane + 1]) || mediane == end) {
+            candidats.insert(candidats.begin() + mediane + 1, p); // Insère la personne à l'indice médian + 1
+            std::cout << "le candidat a été ajouté avec succès " << std::endl;
+            return a_été_ajouté = true;
+        } else {
+            // Recherche récursive dans la deuxième moitié de la liste
+            ajouter_candidat(mediane + 1, end, p);
+        }
+    }
 }
 
-void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
+
+
+void  Election::retirer_candidat(int id){
     for(long unsigned int i=0; i<this->candidats.size();i++){
         if ((*(candidats[i])).id() == id) { 
             if (i < this->candidats.size() - 1) {
@@ -55,7 +109,7 @@ void  Election::retirer_candidat(int id){//a voir pour changer pour plus rapide
     }
 }
 
-bool Election::est_sur_liste(int deb, int end , Personne* p){
+bool Election::est_sur_liste(int deb, int end , Electeur* p){
     Personne::CompAlpha cmp;
     bool est_dessus = false;
     int mediane;
@@ -89,7 +143,7 @@ bool Election::est_sur_liste(int deb, int end , Personne* p){
  * @return true si l'électeur a été ajouté avec succès, false sinon.
  */
 // Fonction pour ajouter un électeur dans la liste électorale
-bool Election::ajouter_electeur(int deb, int end, Personne* p) {
+bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
     // Comparateur pour la comparaison alphabétique
     Personne::CompAlpha cmp;
     

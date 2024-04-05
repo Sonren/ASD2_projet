@@ -26,6 +26,6 @@ void Electeur::setChoix(elections::Personne* p){
     this->choix_vote = p;
 }
 
-void Electeur::ajouterBulletin(Bulletin* bult){
+void Electeur::ajouterBulletin(Personne* bult){
     this->liste_bulletin.push_back(bult);
 }

@@ -29,16 +29,16 @@ void TableDeDecharge::setProbaNull(float p){
     proba_null = p;
 }
 
-void TableDeDecharge::prendreBulletin(Electeur elec){
+void TableDeDecharge::prendreBulletin(){
     float nbBulletinAPrendre = rand() % Election::getListeCandidats().size() + 1;
     float RandomChoixVote = rand() % 10 + 1;
     if(RandomVote <= proba_null){
         //prendre + proche et prendre blanc
-        elec.ajouterBulletin(Election::ajouter_candidat(Election::getListeCandidats()[3]))
-        elec.setChoix = NULL;   
+        Espace::getElecteurEnCours().ajouterBulletin(Election::ajouter_candidat(Election::getListeCandidats()[3]))
+        Espace::getElecteurEnCours().setChoix = NULL;   
     }else if(RandomVote <= proba_blanc){
         //prendre + proche et prendre blanc
-        elec.setChoix = Election::ajouter_candidat(Election::getListeCandidats()[3]);
+        Espace::getElecteurEnCours().setChoix() = Election::ajouter_candidat(Election::getListeCandidats()[3]);
     }else{
         //prendre les plus proche
     }

@@ -50,7 +50,7 @@ int main(void)
    };
    
    std::vector<Personne*> vc = {
-      vp[5], vp[6], vp[7], vp[8]
+      vp[5], vp[6], vp[7], vp[10]
    };
 
 
@@ -96,16 +96,16 @@ int main(void)
 
    
    table_de_vote->afficherInfos();
-   table_de_vote->ajouterElecteur(vp[0]);
+  // table_de_vote->ajouterElecteur(vp[0]);
    table_de_vote->afficherInfos();
-   table_de_vote->ajouterElecteur(vp[1]);
+  // table_de_vote->ajouterElecteur(vp[1]);
    table_de_vote->afficherInfos();
    table_de_vote->sortirElecteur();
    table_de_vote->afficherInfos();
 
    cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
-   table_de_decharge->ajouterElecteur(vp[1]);
+ //  table_de_decharge->ajouterElecteur(vp[1]);
    table_de_decharge->afficherInfos();
 
    cout << endl << "--------Isoloir-----" << endl;

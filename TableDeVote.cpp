@@ -5,7 +5,6 @@
 
 #include "TableDeVote.hpp"
 
-
 TableDeVote::TableDeVote(const int De, const std::string& nom,const int nb_elec)
     : Espace(De, nom), nb_electeur(nb_elec), liste_emargement(new bool[nb_elec])
 {
@@ -29,5 +28,12 @@ bool TableDeVote::a_signer(int ID){
 }
 
 void TableDeVote::vote() {
+    Personne* cle = Espace::getElecteurEnCours().getChoix();
+
+    auto it = urne.find(cle);
+
+    if(it != urne.end()) {
+        it->second = it->second + 1;
+    }
 }
 

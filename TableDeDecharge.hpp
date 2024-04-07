@@ -26,9 +26,16 @@ class TableDeDecharge : public Espace {
         
         // Fonction pour définir la probabilité de bulletins nuls
         void setProbaNull(float p);
+
+        //fonction qui recupere la maximum de difference entre un electeur et un candidat
+        int getMaxSensiPolitique();
         
         // Fonction pour enregistrer le bulletin d'un électeur
         void prendreBulletin(Electeur elec);
+
+        //recherche le bulletin corresondant a la sensibilite politique de l'electeur
+        std::vector <Personne*> chercherChoix();
+
 
         //
 
@@ -38,5 +45,8 @@ class TableDeDecharge : public Espace {
         
         // Probabilité de bulletins nuls
         float proba_null;
+
+        //la distance maximum entre les sensibilités politiques d’un électeur et d’un candidat 
+        int maxSensiPolitique
 };
 #endif

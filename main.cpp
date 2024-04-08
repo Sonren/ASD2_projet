@@ -74,6 +74,7 @@ int main(void)
    bool bol1 = presidentielle->ajouter_electeur(0,2,vp[3]);
    presidentielle->afficher_electeur();
    cout << bol1<< endl;*/
+   presidentielle->setBulletinBlanc(vc[3]);
 
 
    cout << " ---------------Espace--------------" << endl;

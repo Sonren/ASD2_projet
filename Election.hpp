@@ -37,6 +37,12 @@ public:
 
     //Renvoie la liste des candidats
     std::vector<Personne*>  getListeCandidats();
+
+    //permet de set le bulletin blanc qui  correspond à un vote blanc pour un électeur 
+    void setBulletinBlanc(Personne* personneBLanc);
+
+    //permet de recuperer l'adresse de la personne qui represente le bulletin blanc
+    Personne* getBulletinBlanc();
     
     // Ajoute un candidat à la liste des candidats
     void ajouter_candidat(int deb, int end, Personne* p);
@@ -66,6 +72,9 @@ private:
     
     // Liste électorale
     std::vector<Electeur*> liste_electorale;
+
+    // pointeur vers le candidat blanc (bulletin blanc)
+    Personne * bulletin_blanc;
 };
 
 #endif

@@ -9,19 +9,22 @@
 #include "Personne.hpp"
 
 Election::Election(const std::string& nom){
-    this->nom_election = nom;
-    this->candidats = std::vector<Personne*>();
+    nom_election = nom;
+    candidats = std::vector<Personne*>();
+    bulletin_blanc = NULL;
 }
 
 Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat){
-    this->nom_election = nom;
-    this->candidats = liste_candidat;
+    nom_election = nom;
+    candidats = liste_candidat;
+    bulletin_blanc = NULL;
 }
 
 Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Electeur*> liste_electeur){
-    this->nom_election = nom;
-    this->candidats = liste_candidat;
-    this->liste_electorale = liste_electeur;
+    nom_election = nom;
+    candidats = liste_candidat;
+    liste_electorale = liste_electeur;
+    bulletin_blanc = NULL;
 }
 
 Election::~Election(){
@@ -38,6 +41,14 @@ void Election::setNom(std::string new_nom){
 
 std::vector<Personne*>  Election::getListeCandidats(){
     return this->candidats;
+}
+
+void Election::setBulletinBlanc(Personne* personneBlanc){
+    bulletin_blanc = personneBlanc;
+}
+
+Personne* Election::getBulletinBlanc(){
+    return bulletin_blanc;
 }
 
 void Election::ajouter_candidat(int deb, int end, Personne* p){

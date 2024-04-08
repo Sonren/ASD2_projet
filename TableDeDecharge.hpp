@@ -33,8 +33,11 @@ class TableDeDecharge : public Espace {
         // Fonction pour enregistrer le bulletin d'un électeur
         void prendreBulletin(Electeur elec);
 
+        //Recherche le choix final (le vote) de l'electeur en fonction de sa sensibilite il renvoie l'indice a laquelle se situe le candidat
+        int trouverVote();
+
         //recherche le bulletin corresondant a la sensibilite politique de l'electeur
-        std::vector <Personne*> chercherChoix();
+        std::vector<Personne*>  chercherListeChoix(int nbChoix);
 
 
         //

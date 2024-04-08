@@ -14,7 +14,7 @@ int Electeur::getDuree(){
     return duree_espace;
 }
     
-void Electeur::steDuree(int d){
+void Electeur::setDuree(int d){
     duree_espace = d;
 }
     
@@ -28,4 +28,11 @@ void Electeur::setChoix(elections::Personne* p){
 
 void Electeur::ajouterBulletin(Personne* bult){
     liste_bulletin.push_back(bult);
+}
+
+void Electeur::ajouterListeBulletin(std::vector<Personne*> listeVote){
+    std::vector <Personne*> ::iterator it;
+    for (it = listeVote.begin() ; it != listeVote.end(); ++it){
+        ajouterBulletin(*it);
+    }
 }

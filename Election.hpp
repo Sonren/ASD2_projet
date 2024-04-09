@@ -21,7 +21,7 @@ public:
     Election(const std::string& nom);
     
     // Constructeur de la classe Election avec une liste d'électeurs et une liste de candidats
-    Election(const std::string& nom, std::vector<Personne*> liste_electeur, std::vector<Personne*> liste_candidat);
+    Election(const std::string& nom, std::vector<Personne*> liste_candidat, std::vector<Personne*> liste_electeur);
     
     // Constructeur de la classe Election avec une liste de candidats
     Election(const std::string& nom, std::vector<Personne*> liste_candidat);

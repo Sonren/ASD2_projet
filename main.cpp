@@ -45,8 +45,14 @@ int main(void)
       new Personne (" ", "blanc", 0) //represente le vote blanc
    };
 
-   std::vector<Personne*> ve = {
-      vp[0], vp[1], vp[2], vp[3], vp[4], vp[5], vp[6]
+   std::vectorElecteur*> ve = {
+      PersonneToElecteur(vp[0]),
+      PersonneToElecteur(vp[1]), 
+      PersonneToElecteur(vp[2]), 
+      PersonneToElecteur(vp[3]),
+      PersonneToElecteur(vp[4]),
+      PersonneToElecteur(vp[5]),
+      PersonneToElecteur(vp[6])
    };
    
    std::vector<Personne*> vc = {

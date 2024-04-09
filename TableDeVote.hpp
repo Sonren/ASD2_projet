@@ -5,6 +5,7 @@
 
 #include "Espace.hpp"
 #include "Personne.hpp"
+#include <unordered_map>
 
 #ifndef TABLEDEVOTE_HPP
 #define TABLEDEVOTE_HPP
@@ -15,7 +16,7 @@ typedef std::unordered_map<elections::Personne*, int> map_Personne_int;
 class TableDeVote : public Espace {
     public:
         // Constructeur prenant en paramètres le nombre de dés, le nom de la table, le nombre d'électeurs, ainsi que la liste de candidats
-        TableDeVote(const int De, const std::string& nom,const int nb_elec, const vector<Personne*> liste_candidats);
+        TableDeVote(const int De, const std::string& nom,const int nb_elec);
         
         // Fonction pour enregistrer la signature d'un électeur avec son ID
         void signer_liste(int ID);
@@ -33,6 +34,7 @@ class TableDeVote : public Espace {
         // Nombre total d'électeurs attendus
         int nb_electeur;
 
+        //represente l'urne pour voter sous forme de table de hchage 
         map_Personne_int urne;
     };
 #endif

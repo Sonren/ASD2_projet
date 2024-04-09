@@ -36,3 +36,9 @@ void Electeur::ajouterListeBulletin(std::vector<Personne*> listeVote){
         ajouterBulletin(*it);
     }
 }
+
+void Electeur::afficherListeBulletin(){
+    for(std::vetor <Personne*> ::iterator it = liste_bulletin.begin(); it <  liste_bulletin.end(); it++){
+        std::cout << " N° bulletin : "<< it << " est le candidat : " << (*it) << std::endl;
+    }
+}

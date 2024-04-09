@@ -36,6 +36,9 @@ class Electeur : public elections::Personne {
     //Déclaration de la méthode ajouterListeBulletin() pour ajouter une liste de bulletin de vote
     void ajouterListeBulletin(std::vector<Personne*> listeVote);
 
+    //Déclaration de la méthode afficherListeBulletin() pour afficher la liste
+    void afficherListeBulletin();
+
     private:
 
     std::vector<Personne*> liste_bulletin; //la liste des bulletins qu'il prends dans la table de décharge

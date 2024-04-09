@@ -7,6 +7,7 @@
 #include "TableDeDecharge.hpp"
 #include "Election.hpp"
 #include "Personne.hpp"
+#include <math.h>
 #include <cstdlib> 
 
 TableDeDecharge::TableDeDecharge(const int De, const std::string& nom,float probaB, float probaN)
@@ -36,12 +37,17 @@ int TableDeDecharge::getMaxSensiPolitique(){
 }
 
 int TableDeDecharge::trouverVote(){
+    int idSpolCandidat = Election::getListeCandidats()[1]->spol();
     for(int i =0; i< Election::getListeCandidats().size(); ++i){
         if(Election::getListeCandidats()[i]->spol() == Espace::getElecteurEnCours()->spol()){
             return i;
+        }else{
+            if(Election::getListeCandidats()[i]->spol() < abs(Espace::getElecteurEnCours( )->spol()-idSpolCandidat)){
+                idSpolCandidat = Election::getListeCandidats()[i]->spol();
+            }
         }
     }
-    return -1; // erreur si on ne trouve pas le candidat
+    return idSpolCandidat;
 }
 
 std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){

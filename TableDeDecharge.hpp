@@ -50,6 +50,6 @@ class TableDeDecharge : public Espace {
         float proba_null;
 
         //la distance maximum entre les sensibilités politiques d’un électeur et d’un candidat 
-        int maxSensiPolitique
+        int maxSensiPolitique;
 };
 #endif

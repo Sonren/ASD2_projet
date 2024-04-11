@@ -45,7 +45,7 @@ int main(void)
       new Personne (" ", "blanc", 0) //represente le vote blanc
    };
 
-   std::vectorElecteur*> ve = {
+   std::vector<Electeur*> ve = {
       PersonneToElecteur(vp[0]),
       PersonneToElecteur(vp[1]), 
       PersonneToElecteur(vp[2]), 
@@ -72,7 +72,8 @@ int main(void)
    /*cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
    cout << "liste des candidats : " << endl << endl;
    presidentielle->afficher_candidat();
-   cout << "liste des electeurs : " << endl << endl;
+   cout << "liste des electeurs : " << endl << endl; matching function for call to ‘TableDeDecharge::TableDeDecharge(int&, const char [19], double, double, Election*&)’
+   96 | e(randomNumber_decharge,"table de décharge",0.35,0.15, 
    presidentielle->afficher_electeur();
    bool bol = presidentielle->est_sur_liste(0,2,vp[1]);
    cout << bol<< endl;
@@ -85,20 +86,20 @@ int main(void)
 
    cout << " ---------------Espace--------------" << endl;
 
-   // Pour générer un nombre aléatoire entre 1 et 10
+   // Pour générer un nombre aléatoire entre 1 et 10ake
    int randomNumber_vote = std::rand() % 10 + 1;
 
-   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", 10);
+   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", *(presidentielle), 10);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_decharge = std::rand() % 10 + 1;
 
-   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge",0.35,0.15);
+   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge", *(presidentielle), 0.35,0.15);
 
    // Pour générer un nombre aléatoire entre 1 et 10
    int randomNumber_isoloir = std::rand() % 10 + 1;
 
-   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"isoloir", 3);
+   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"isoloir", *(presidentielle), 3);
 
 
    
@@ -116,7 +117,7 @@ int main(void)
    table_de_decharge->afficherInfos();
 
    cout << endl << "--------Isoloir-----" << endl;
-   isoloir->ajouterElecteur(vp[1]);
+   isoloir->ajouterElecteur(ve[1]);
    isoloir->afficherInfos();
 
     // destruction des personnes

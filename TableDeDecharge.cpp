@@ -10,8 +10,8 @@
 #include <math.h>
 #include <cstdlib> 
 
-TableDeDecharge::TableDeDecharge(const int De, const std::string& nom,float probaB, float probaN)
-    : Espace(De, nom), proba_blanc(probaB), proba_null(probaN)
+TableDeDecharge::TableDeDecharge(const int De, const std::string& nom, Election elec, float probaB, float probaN)
+    : Espace(De, nom, elec), proba_blanc(probaB), proba_null(probaN)
 {};
 
 
@@ -37,13 +37,13 @@ int TableDeDecharge::getMaxSensiPolitique(){
 }
 
 int TableDeDecharge::trouverVote(){
-    int idSpolCandidat = Election::getListeCandidats()[1]->spol();
-    for(int i =0; i< Election::getListeCandidats().size(); ++i){
-        if(Election::getListeCandidats()[i]->spol() == Espace::getElecteurEnCours()->spol()){
+    int idSpolCandidat = Espace::getElection().getListeCandidats()[1]->spol();
+    for(long unsigned int i =0; i< Espace::getElection().getListeCandidats().size(); ++i){
+        if(Espace::getElection().getListeCandidats()[i]->spol() == Espace::getElecteurEnCours()->spol()){
             return i;
         }else{
-            if(Election::getListeCandidats()[i]->spol() < abs(Espace::getElecteurEnCours( )->spol()-idSpolCandidat)){
-                idSpolCandidat = Election::getListeCandidats()[i]->spol();
+            if(Espace::getElection().getListeCandidats()[i]->spol() < abs(Espace::getElecteurEnCours( )->spol()-idSpolCandidat)){
+                idSpolCandidat = Espace::getElection().getListeCandidats()[i]->spol();
             }
         }
     }
@@ -52,18 +52,16 @@ int TableDeDecharge::trouverVote(){
 
 std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){
     std::vector <Personne*> listeTempBulletin;
-    if(Espace::getElecteurEnCours()->getChoix() == NULL || Espace::getElecteurEnCours()->getChoix() == Election::getBulletinBlanc()){
-        for(std::vector<Personne*>::iterator it = Election::getListeCandidats().begin(); it<nbChoix; it++){
-            if(Election::getListeCandidats()[it] != Election::getBulletinBlanc()){
-                listeTempBulletin.push_back(*it); 
+    if(Espace::getElecteurEnCours()->getChoix() == NULL || Espace::getElecteurEnCours()->getChoix() == Espace::getElection().getBulletinBlanc()){
+        for(int i = 0; i < nbChoix; i++){
+            if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc()){
+                listeTempBulletin.push_back(Espace::getElection().getListeCandidats()[i]); 
             }
         }
     }else{
-        int Choix;
-        Choix = trouverVote();
-        for(std::vector<Personne*>::iterator it = Election::getListeCandidats().begin(); it<nbChoix; it++){
-            if(Election::getListeCandidats()[it] != Election::getBulletinBlanc() || Election::getListeCandidats()[it] != Espace::getElecteurEnCours()->getChoix()){
-                listeTempBulletin.push_back(*it); 
+        for(int i = 0; i < nbChoix; i++){
+            if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc() || Espace::getElection().getListeCandidats()[i] != Espace::getElecteurEnCours()->getChoix()){
+                listeTempBulletin.push_back(Espace::getElection().getListeCandidats()[i]); 
             }
         }
 
@@ -73,20 +71,21 @@ std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){
 
 
 void TableDeDecharge::prendreBulletin(){
-    float nbBulletinAPrendre = rand() % Election::getListeCandidats().size() + 1;
+    float nbBulletinAPrendre = rand() % Espace::getElection().getListeCandidats().size() + 1;
     float RandomChoixVote = rand() % 10 + 1;
-    while(RandomChoixVote <= Election::getListeCandidats().size()) {
+    while(RandomChoixVote <= Espace::getElection().getListeCandidats().size()) {
         RandomChoixVote = rand() % 10 + 1;
     }
-    if(RandomVote <= proba_null){
-        Espace::getElecteurEnCours().ajouterBulletin(Election::ajouter_candidat(Election::getBulletinBlanc()));
-        Espace::getElecteurEnCours().setChoix = NULL;   
+    if(RandomChoixVote <= proba_null){
+        Espace::getElecteurEnCours()->ajouterBulletin(Espace::getElection().getBulletinBlanc());
+        Espace::getElecteurEnCours()->setChoix(NULL);   
         Espace::getElecteurEnCours()->ajouterListeBulletin(chercherListeChoix(nbBulletinAPrendre));  
-    }else if(RandomVote <= proba_blanc){
+    }else if(RandomChoixVote <= proba_blanc){
         //prendre + proche et prendre blanc
-        Espace::getElecteurEnCours().setChoix() = Election::ajouter_candidat(Election::getBulletinBlanc());
+        Espace::getElecteurEnCours()->setChoix(Espace::getElection().getBulletinBlanc());
     }else{
-        Espace::getElecteurEnCours()->setChoix() = trouverVote();
-        Espace::getElecteurEnCours()->ajouterBulletin(chercherListeChoix(nbBulletinAPrendre));
+        int choix = trouverVote();
+        Espace::getElecteurEnCours()->setChoix(Espace::getElection().getListeCandidats()[choix]);
+        Espace::getElecteurEnCours()->ajouterListeBulletin(chercherListeChoix(nbBulletinAPrendre));
     }
 }

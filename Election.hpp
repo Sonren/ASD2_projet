@@ -21,11 +21,11 @@ public:
     Election(const std::string& nom);
     
     // Constructeur de la classe Election avec une liste d'électeurs et une liste de candidats
-    Election(const std::string& nom, std::vector<Personne*> liste_candidat, std::vector<Personne*> liste_electeur);
+    Election(const std::string& nom, std::vector<Personne*> liste_candidat, std::vector<Electeur*> liste_electeur);
     
     // Constructeur de la classe Election avec une liste de candidats
     Election(const std::string& nom, std::vector<Personne*> liste_candidat);
-    
+
     // Destructeur
     ~Election();
     
@@ -45,7 +45,7 @@ public:
     Personne* getBulletinBlanc();
     
     // Ajoute un candidat à la liste des candidats
-    void ajouter_candidat(int deb, int end, Personne* p);
+    void ajouter_candidat(Personne* candi);
     
     // Retire un candidat de la liste des candidats par son ID
     void retirer_candidat(int id);

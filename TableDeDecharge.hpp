@@ -13,7 +13,7 @@ class TableDeDecharge : public Espace {
     public:
         // Constructeur prenant en paramètres le nombre de dés, le nom de la table,
         // la probabilité de bulletins blancs et la probabilité de bulletins nuls
-        TableDeDecharge(const int De, const std::string& nom,float probaB, float  probaN);
+        TableDeDecharge(const int De, const std::string& nom, Election elec, float probaB, float  probaN);
         
         // Fonction pour obtenir la probabilité de bulletins blancs
         float getProbaBlanc();
@@ -31,7 +31,7 @@ class TableDeDecharge : public Espace {
         int getMaxSensiPolitique();
         
         // Fonction pour enregistrer le bulletin d'un électeur
-        void prendreBulletin(Electeur elec);
+        void prendreBulletin();
 
         //Recherche le choix final (le vote) de l'electeur en fonction de sa sensibilite il renvoie l'indice a laquelle se situe le candidat
         int trouverVote();

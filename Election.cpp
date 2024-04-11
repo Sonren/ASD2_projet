@@ -51,60 +51,8 @@ Personne* Election::getBulletinBlanc(){
     return bulletin_blanc;
 }
 
-void Election::ajouter_candidat(int deb, int end, Personne* p){
-    // Comparateur pour la comparaison alphabétique
-    Personne::CompAlpha cmp;
-    
-    bool a_été_ajouté; // Variable pour indiquer si l'électeur a été ajouté avec succès
-    int mediane; // Indice médian de la plage de recherche
-        
-    // Vérification des bornes de recherche
-    if (deb > end) {
-        std::cout << "les valeurs de début et fin sont incorrects " << std::endl;
-        return a_été_ajouté = false; // Retourne false si les bornes sont incorrectes
-    }
-    
-    // Cas de base : Liste vide
-    if (candidats.empty()) {
-        candidats.push_back(p); // Ajoute la personne à la liste
-        return a_été_ajouté = true; // Retourne true car l'électeur a été ajouté
-    }
-    
-    // Calcul de l'indice médian
-    mediane = (end + deb) / 2;
-    
-    // Comparaison avec l'élément médian de la liste
-    if (cmp.operator()(p, candidats[mediane])) { // Si la personne est "inférieure" à l'élément médian
-        // Cas où la personne doit être insérée avant l'élément médian
-        if (mediane == deb) {
-            candidats.insert(candidats.begin(), p); // Insère la personne au début de la liste
-            std::cout << "le candidat a été ajouté avec succès " << std::endl;
-            return a_été_ajouté = true;
-        }
-        if (!cmp.operator()(p, candidats[mediane - 1])) {
-            candidats.insert(candidats.begin() + mediane - 1, p); // Insère la personne à l'indice médian - 1
-            std::cout << "le candidat a été ajouté avec succès " << std::endl;
-            return a_été_ajouté = true;
-        } else {
-            // Recherche récursive dans la première moitié de la liste
-            ajouter_candidat(deb, mediane - 1, p);
-        }
-    } else { // Si la personne est "supérieure" à l'élément médian
-        // Cas où la personne doit être insérée après l'élément médian
-        if (mediane == end) {
-            candidats.insert(candidats.begin() + mediane + 1, p); // Insère la personne à la fin de la liste
-            std::cout << "le candidat a été ajouté avec succès " << std::endl;
-            return a_été_ajouté = true;
-        }
-        if (!cmp.operator()(p, candidats[mediane + 1]) || mediane == end) {
-            candidats.insert(candidats.begin() + mediane + 1, p); // Insère la personne à l'indice médian + 1
-            std::cout << "le candidat a été ajouté avec succès " << std::endl;
-            return a_été_ajouté = true;
-        } else {
-            // Recherche récursive dans la deuxième moitié de la liste
-            ajouter_candidat(mediane + 1, end, p);
-        }
-    }
+void Election::ajouter_candidat(Personne* candi){
+   candidats.push_back(candi);
 }
 
 
@@ -169,7 +117,7 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
     
     // Cas de base : Liste vide
     if (liste_electorale.empty()) {
-        liste_electorale.push_back(p); // Ajoute la personne à la liste
+        liste_electorale.push_back(e); // Ajoute la personne à la liste
         return a_été_ajouté = true; // Retourne true car l'électeur a été ajouté
     }
     
@@ -177,35 +125,35 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
     mediane = (end + deb) / 2;
     
     // Comparaison avec l'élément médian de la liste
-    if (cmp.operator()(p, liste_electorale[mediane])) { // Si la personne est "inférieure" à l'élément médian
+    if (cmp.operator()(e, liste_electorale[mediane])) { // Si la personne est "inférieure" à l'élément médian
         // Cas où la personne doit être insérée avant l'élément médian
         if (mediane == deb) {
-            liste_electorale.insert(liste_electorale.begin(), p); // Insère la personne au début de la liste
+            liste_electorale.insert(liste_electorale.begin(), e); // Insère la personne au début de la liste
             std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         }
-        if (!cmp.operator()(p, liste_electorale[mediane - 1])) {
-            liste_electorale.insert(liste_electorale.begin() + mediane - 1, p); // Insère la personne à l'indice médian - 1
+        if (!cmp.operator()(e, liste_electorale[mediane - 1])) {
+            liste_electorale.insert(liste_electorale.begin() + mediane - 1, e); // Insère la personne à l'indice médian - 1
             std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         } else {
             // Recherche récursive dans la première moitié de la liste
-            ajouter_electeur(deb, mediane - 1, p);
+            ajouter_electeur(deb, mediane - 1, e);
         }
     } else { // Si la personne est "supérieure" à l'élément médian
         // Cas où la personne doit être insérée après l'élément médian
         if (mediane == end) {
-            liste_electorale.insert(liste_electorale.begin() + mediane + 1, p); // Insère la personne à la fin de la liste
+            liste_electorale.insert(liste_electorale.begin() + mediane + 1, e); // Insère la personne à la fin de la liste
             std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         }
-        if (!cmp.operator()(p, liste_electorale[mediane + 1]) || mediane == end) {
-            liste_electorale.insert(liste_electorale.begin() + mediane + 1, p); // Insère la personne à l'indice médian + 1
+        if (!cmp.operator()(e, liste_electorale[mediane + 1]) || mediane == end) {
+            liste_electorale.insert(liste_electorale.begin() + mediane + 1, e); // Insère la personne à l'indice médian + 1
             std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         } else {
             // Recherche récursive dans la deuxième moitié de la liste
-            ajouter_electeur(mediane + 1, end, p);
+            ajouter_electeur(mediane + 1, end, e);
         }
     }
 }

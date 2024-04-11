@@ -8,7 +8,7 @@
 #include "Election.hpp"
 
 
-Isoloir::Isoloir(const int De, const std::string& nom, int nbIsoloir) : Espace(De, nom), nbIsoloir(nbIsoloir), listeIsoloir(*(new std::queue<Electeur*>))
+Isoloir::Isoloir(const int De, const std::string& nom, Election elec, int nbIsoloir) : Espace(De, nom, elec), nbIsoloir(nbIsoloir), listeIsoloir(*(new std::queue<Electeur*>))
 {
     Espace::setElecteurEnCours(listeIsoloir.front());
 }

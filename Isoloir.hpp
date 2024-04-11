@@ -5,6 +5,7 @@
 
 #include <string>
 #include "Espace.hpp"
+#include "Electeur.hpp"
 #include <queue>
 
 #ifndef ISOLOIR_HPP
@@ -14,7 +15,7 @@
 class Isoloir : public Espace {
     public:
         // Constructeur prenant en paramètres le nombre de dés, le nom de l'isoloir et le nombre d'isoloirs
-        Isoloir(const int De, const std::string& nom, int nbIsoloir);
+        Isoloir(const int De, const std::string& nom, Election elec, int nbIsoloir);
         
         // Destructeur
         ~Isoloir();

@@ -4,9 +4,10 @@
 */
 
 #include "Espace.hpp"
+#include "Election.hpp"
 #include <queue>
 
-Espace::Espace(const int De, const std::string& nom) : De(De), nom(nom), electeurEnCours(nullptr), fileEspace(*(new std::queue<Electeur*>)) 
+Espace::Espace(const int De, const std::string& nom, Election elec) : De(De), nom(nom), electeurEnCours(nullptr), fileEspace(*(new std::queue<Electeur*>)), election(elec) 
 {}
 
 Espace::~Espace() {
@@ -86,4 +87,12 @@ std::queue<Electeur*> Espace::getFile(){
 
 void Espace::setElecteurEnCours(Electeur* ptrElecteur){
     electeurEnCours = ptrElecteur;
+}
+
+Election Espace::getElection(){
+    return election;
+}   
+
+void Espace::setElection(Election e){
+    election = e;
 }

@@ -4,10 +4,9 @@
 */
 
 #include "Electeur.hpp"
-#include "Bulletin.hpp"
 
 Electeur::Electeur(const std::string& nom, const std::string& prenom, int spol,int duree)
-    : Personne(nom,prenom,spol), duree_espace(duree), liste_bulletin(*(new std::vector<Bulletin*>)), choix_vote(NULL)
+    : Personne(nom,prenom,spol), duree_espace(duree), liste_bulletin(*(new std::vector<Personne*>)), choix_vote(NULL)
 {};
 
 int Electeur::getDuree(){
@@ -38,7 +37,7 @@ void Electeur::ajouterListeBulletin(std::vector<Personne*> listeVote){
 }
 
 void Electeur::afficherListeBulletin(){
-    for(std::vetor <Personne*> ::iterator it = liste_bulletin.begin(); it <  liste_bulletin.end(); it++){
-        std::cout << " N° bulletin : "<< it << " est le candidat : " << (*it) << std::endl;
+    for(std::vector <Personne*> ::iterator it = liste_bulletin.begin(); it <  liste_bulletin.end(); it++){
+        std::cout << " N° bulletin : "<< *it << " est le candidat : " << (*it) << std::endl;
     }
 }

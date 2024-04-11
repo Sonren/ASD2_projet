@@ -8,6 +8,7 @@
 
 #include <string>
 #include "Electeur.hpp"
+#include "Election.hpp"
 #include <queue>
 
 using namespace elections;
@@ -16,7 +17,7 @@ using namespace elections;
 class Espace {
     public:
         // Constructeur prenant en paramètres le nombre de dés et le nom de l'espace
-        Espace(const int De, const std::string& nom);
+        Espace(const int De, const std::string& nom, Election elec);
         
         // Destructeur
         ~Espace();
@@ -51,6 +52,12 @@ class Espace {
         // Définit la personne actuellement dans l'espace
         void setElecteurEnCours(Electeur* ptrElecteur);
 
+        //Renvoie l'élection associé a l'espace
+        Election getElection();
+
+        //Définie l'élection associé a l'espace
+        void setElection(Election e);
+
     private:
         // Nom de l'espace
         std::string nom;
@@ -63,6 +70,9 @@ class Espace {
         
         // File d'attente de l'espace
         std::queue<Electeur*> fileEspace;
+
+        //Election associé aux espaces
+        Election election;
 };
 
 #endif

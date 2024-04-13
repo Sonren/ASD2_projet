@@ -22,6 +22,9 @@ class Isoloir : public Espace {
         
         // Vérifie si les différents isoloirs sont tous vide ou non
         bool estVide();
+
+        //Vérifie si les différents isoloir sont tous pleins ou non
+        bool estPlein();
         
         // Ajoute une personne à l'espace Isoloir
         void ajouterElecteur(Electeur* pers);

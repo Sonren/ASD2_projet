@@ -26,8 +26,12 @@ bool Isoloir::estVide(){
     return listeIsoloir.empty();
 }
 
+bool Isoloir::estPlein() {
+    return listeIsoloir.size()>=nbIsoloir;
+}
+
 void Isoloir::ajouterElecteur(Electeur* elec) {
-    if (listeIsoloir.size()>=nbIsoloir) {
+    if (estPlein()) {
         Espace::getFile().push(Espace::getElecteurEnCours());
     } else {
         listeIsoloir.push(elec);

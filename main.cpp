@@ -56,7 +56,7 @@ int main(void)
    };
    
    std::vector<Personne*> vc = {
-      vp[5], vp[6], vp[7], vp[10]
+      vp[5], vp[6], vp[7], vp[10], vp[0], vp[1], vp[2], vp[3], vp[4]
    };
 
 

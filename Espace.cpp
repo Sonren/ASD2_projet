@@ -27,6 +27,7 @@ bool Espace::estVide() {
 void Espace::ajouterElecteur(Electeur* elecDecharge) {
     if(estVide()) {
         electeurEnCours = elecDecharge;
+        elecDecharge->setDuree(De);
     } else {
         // On place la personne en attente
         fileEspace.push(elecDecharge);

@@ -42,4 +42,4 @@ class Isoloir : public Espace {
         // On utilise une queue pour représenter les différents isoloir
         std::queue<Electeur*> listeIsoloir;
 };
-#endif //ISLOIR_HPP
+#endif //ISOLOIR_HPP

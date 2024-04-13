@@ -39,12 +39,7 @@ Electeur* Espace::sortirElecteur() {
         throw std::runtime_error("La Table de décharge est vide");
     } else {
         Electeur* eTemp = electeurEnCours;
-        if(fileEspace.empty()) {
-            electeurEnCours = NULL;
-        } else {
-            electeurEnCours = fileEspace.front();
-            fileEspace.pop();
-        }
+        electeurEnCours = NULL;
         return eTemp;
     }
 }

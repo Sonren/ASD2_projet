@@ -43,14 +43,7 @@ Electeur* Isoloir::sortirElecteur() {
         throw std::runtime_error("L'Espace d'isoloir est vide");
     } else {
         Electeur* eTemp = listeIsoloir.front();//La personne à faire sortir
-        Electeur* eAttente;// La personne  qui attendait la place de pTemp
         listeIsoloir.pop();
-        /* Si il y a une personne en attente, on l'a fait rentrer dans l'isoloir */
-        if(!Espace::getFile().empty()) {
-            eAttente=Espace::getFile().front();
-            Espace::getFile().pop();
-            listeIsoloir.push(eAttente);
-        }
         return eTemp;
     }
 }

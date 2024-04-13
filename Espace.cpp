@@ -1,6 +1,6 @@
 /**
- * \file Espace.hpp
- * \author Bertrand RIVARD Hugo PIARD
+* \file Espace.hpp
+* \author Bertrand RIVARD Hugo PIARD
 */
 
 #include "Espace.hpp"
@@ -31,6 +31,7 @@ void Espace::ajouterElecteur(Electeur* elecDecharge) {
     } else {
         // On place la personne en attente
         fileEspace.push(elecDecharge);
+        elecDecharge->setDuree(De);
     }
 }
 
@@ -61,7 +62,7 @@ void Espace::afficherFirstQueue() const {
 
 void Espace::afficherInfos(){
     if(estVide()){
-        std::cout << "l'espace est vide " << std::endl;
+        std::cout << nom << " : l'espace est vide " << std::endl;
     }else{
         std::cout << "l'espace " << nom <<  " contient une personne : " << *electeurEnCours << std::endl ;
         std::cout << "elle doit rester : " << De << " en temps" << std::endl;

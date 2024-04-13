@@ -40,8 +40,6 @@ class TableDeDecharge : public Espace {
         std::vector<Personne*>  chercherListeChoix(int nbChoix);
 
 
-        //
-
     private:
         // Probabilité de bulletins blancs
         float proba_blanc;

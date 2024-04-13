@@ -103,22 +103,26 @@ int main(void)
 
 
    
+   /* 
    table_de_vote->afficherInfos();
-  // table_de_vote->ajouterElecteur(vp[0]);
+   table_de_vote->ajouterElecteur(ve[0]);
    table_de_vote->afficherInfos();
-  // table_de_vote->ajouterElecteur(vp[1]);
+   table_de_vote->ajouterElecteur(ve[1]);
    table_de_vote->afficherInfos();
    table_de_vote->sortirElecteur();
-   table_de_vote->afficherInfos();
+   table_de_vote->afficherInfos(); 
+   */
 
    cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
- //  table_de_decharge->ajouterElecteur(vp[1]);
+   table_de_decharge->ajouterElecteur(ve[1]);
+   table_de_decharge->prendreBulletin();
+   table_de_decharge->getElecteurEnCours()->afficherListeBulletin();
    table_de_decharge->afficherInfos();
 
-   cout << endl << "--------Isoloir-----" << endl;
+   /*cout << endl << "--------Isoloir-----" << endl;
    isoloir->ajouterElecteur(ve[1]);
-   isoloir->afficherInfos();
+   isoloir->afficherInfos();*/
 
     // destruction des personnes
    for (Personne* psn : vp)

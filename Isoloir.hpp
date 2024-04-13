@@ -35,6 +35,9 @@ class Isoloir : public Espace {
         // Affiche toutes les infos sur l'espace (la personne dedans et la durée)
         void afficherInfos() override;
 
+        //permet de recuperer la liste d'isoloir 
+        std::queue<Electeur*> getListeIsoloir();
+
     private:
         // Nombre d'isoloirs différents dans l'espace Isoloir
         int nbIsoloir;

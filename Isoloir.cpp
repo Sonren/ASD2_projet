@@ -60,6 +60,10 @@ void Isoloir::afficherInfos(){
     }
 }
 
+std::queue<Electeur*> Isoloir::getListeIsoloir(){
+    return listeIsoloir;
+}
+
 
 
 

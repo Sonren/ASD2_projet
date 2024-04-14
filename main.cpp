@@ -128,7 +128,7 @@ int main(void)
 
    cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
-   table_de_decharge->ajouterElecteur(ve[1]);
+   table_de_decharge->ajouterElecteur(ve[6]);
    table_de_decharge->prendreBulletin();
    table_de_decharge->getElecteurEnCours()->afficherListeBulletin();
    table_de_decharge->afficherInfos();

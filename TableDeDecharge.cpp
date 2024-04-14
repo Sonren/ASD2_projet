@@ -37,27 +37,29 @@ int TableDeDecharge::getMaxSensiPolitique(){
 }
 
 int TableDeDecharge::trouverVote(){
-    int idSpolCandidat = Espace::getElection().getListeCandidats()[1]->spol();
+    int SpolChoixCandidat = Espace::getElection().getListeCandidats()[0]->spol();
     int Getindice = 0;
     for(long unsigned int i =0; i< Espace::getElection().getListeCandidats().size(); ++i){
         if(Espace::getElection().getListeCandidats()[i]->spol() == Espace::getElecteurEnCours()->spol()){
             Getindice = i;
             return i;
         }else{
-            if(Espace::getElection().getListeCandidats()[i]->spol() < abs(Espace::getElecteurEnCours( )->spol()-idSpolCandidat)){
-                idSpolCandidat = Espace::getElection().getListeCandidats()[i]->spol();
+            std::cout << " spol i de la liste : " << Espace::getElection().getListeCandidats()[i]->spol() << std::endl;
+            std::cout << " resultat du calcul : " << abs(Espace::getElecteurEnCours( )->spol()-SpolChoixCandidat) << std::endl;
+            if(SpolChoixCandidat > abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) || Espace::getElection().getBulletinBlanc() != Espace::getElection().getListeCandidats()[i]){
+                SpolChoixCandidat = Espace::getElection().getListeCandidats()[i]->spol();
                 Getindice = i;
             }
         }
     }
     Espace::getElecteurEnCours()->ajouterBulletin(Espace::getElection().getListeCandidats()[Getindice]);
-    return idSpolCandidat;
+    return SpolChoixCandidat;
 }
 
 std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){
     std::vector <Personne*> listeTempBulletin;
     if(Espace::getElecteurEnCours()->getChoix() == NULL || Espace::getElecteurEnCours()->getChoix() == Espace::getElection().getBulletinBlanc()){
-        for(int i = 0; i < nbChoix; i++){
+        for(int i = 0; i < nbChoix-1; i++){
             if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc()){
                 listeTempBulletin.push_back(Espace::getElection().getListeCandidats()[i]); 
             }
@@ -82,19 +84,24 @@ void TableDeDecharge::prendreBulletin(){
         nbBulletinAPrendre = rand() % 10 + 2;
     }
     std::cout << "NbBulletin : " << nbBulletinAPrendre << std::endl;
-    //std::cout << "randomChoixVote : " <<  RandomChoixVote << std::endl;
-    if(RandomChoixVote <= proba_null){
-        std::cout << "Coucou blanc" << std::endl;
+    std::cout << " proba null : " << proba_null << " proba blanc : " << proba_blanc << std::endl;
+    std::cout << "randomChoixVote : " <<  RandomChoixVote << std::endl;
+    std::cout << "liste de candidat : " << std::endl;
+    Espace::getElection().afficher_candidat();
+    std::cout << " electeur : " <<  Espace::getElecteurEnCours()->spol() << std::endl;
+    if(RandomChoixVote <= proba_null*10){
+        std::cout << "Coucou null" << std::endl;
         Espace::getElecteurEnCours()->ajouterBulletin(Espace::getElection().getBulletinBlanc());
         Espace::getElecteurEnCours()->setChoix(NULL);   
-        Espace::getElecteurEnCours()->ajouterListeBulletin(chercherListeChoix(nbBulletinAPrendre));  
-    }else if(RandomChoixVote <= proba_blanc){
-        //prendre + proche et prendre blanc
+    }else if(RandomChoixVote <= proba_blanc*10){
+        std::cout << "Coucou blanc" << std::endl;
         Espace::getElecteurEnCours()->setChoix(Espace::getElection().getBulletinBlanc());
+        Espace::getElecteurEnCours()->ajouterBulletin(Espace::getElection().getBulletinBlanc());
     }else{
+        std::cout << "Coucou normal" << std::endl;
         int choix = trouverVote();
         Espace::getElecteurEnCours()->setChoix(Espace::getElection().getListeCandidats()[choix]);
         std::cout << " Choix vote : " << *(Espace::getElecteurEnCours()->getChoix()) << std::endl;
-        Espace::getElecteurEnCours()->ajouterListeBulletin(chercherListeChoix(nbBulletinAPrendre));
     }
+    Espace::getElecteurEnCours()->ajouterListeBulletin(chercherListeChoix(nbBulletinAPrendre));
 }

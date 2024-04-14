@@ -38,7 +38,7 @@ void Espace::ajouterElecteur(Electeur* elecDecharge) {
 Electeur* Espace::sortirElecteur() {
 
     if(estVide()) {
-        throw std::runtime_error("La Table de décharge est vide");
+        throw std::runtime_error("L'espace' est vide");
     } else {
         Electeur* eTemp = electeurEnCours;
         electeurEnCours = NULL;

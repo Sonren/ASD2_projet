@@ -17,6 +17,8 @@ TableDeVote::TableDeVote(const int De, const std::string& nom, Election elec, co
         //Chaque candidat commence avec 0 vote en sa faveur
         urne.insert(std::make_pair(pers,0));
     }
+    std::cout << "nbelec : " << nb_elec << std::endl;
+    std::cout << "taille liste emargement : " << sizeof(liste_emargement)/sizeof(*liste_emargement) << std::endl;
 };
 
 void TableDeVote::signer_liste(int ID){
@@ -34,6 +36,13 @@ void TableDeVote::vote() {
 
     if(it != urne.end()) {
         it->second = it->second + 1;
+    }
+}
+
+void TableDeVote::afficheListe(){
+    float taille = sizeof(liste_emargement)/sizeof(int);
+    for(int j = 0; j<taille;j++){
+        std::cout << " id : " << j << "   a signer = " << liste_emargement[j] << std::endl;
     }
 }
 

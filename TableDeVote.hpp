@@ -27,6 +27,9 @@ class TableDeVote : public Espace {
         // Fonction pour enregistrer le vote
         void vote();
 
+        //fonction qui affiche la liste d'emargement
+        void afficheListe();
+
     private:
         // Tableau dynamique pour enregistrer les signatures des électeurs
         bool* liste_emargement;

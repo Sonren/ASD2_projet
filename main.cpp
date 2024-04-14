@@ -77,6 +77,9 @@ int main(void){
       PersonneToElecteur(vp[6])
    };
 
+   int* tabtemp = new int[10];
+   tabtemp[0] = 1;
+   tabtemp[7] = 5;
    
    std::vector<Personne*> vc = {
       vp[5], vp[6], vp[7], vp[10], vp[0]
@@ -242,7 +245,7 @@ int main(void){
 
             //On place l'électeur qui sort de la décharge dans la fileAttente de la table de vote de manière provisoire
             cout << isoloir->getListeIsoloir().front()->nom() <<" sort"<<endl;
-            table_de_vote->getFile().push(isoloir->sortirElecteur());
+            table_de_vote->setFileEspace(isoloir->sortirElecteur());
          }
       }
       
@@ -271,9 +274,11 @@ int main(void){
             cout<<table_de_vote->getElecteurEnCours()->nom()<<" sort"<<endl;
             cout<<"SORTIE"<<endl;
             cout<< table_de_vote->getElecteurEnCours()->nom() <<" sort"<<endl;
-            table_de_vote->setElecteurEnCours(nullptr);
+            table_de_vote->sortirElecteur();
          }
-      }
+      } 
+      cout << "---------------Liste emargement -----------------" << endl;
+      table_de_vote->afficheListe();
          
       
       

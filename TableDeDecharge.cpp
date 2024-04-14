@@ -44,8 +44,8 @@ int TableDeDecharge::trouverVote(){
             Getindice = i;
             return i;
         }else{
-            std::cout << " spol i de la liste : " << Espace::getElection().getListeCandidats()[i]->spol() << std::endl;
-            std::cout << " resultat du calcul : " << abs(Espace::getElecteurEnCours( )->spol()-SpolChoixCandidat) << std::endl;
+            //std::cout << " spol i de la liste : " << Espace::getElection().getListeCandidats()[i]->spol() << std::endl;
+            // std::cout << " resultat du calcul : " << abs(Espace::getElecteurEnCours( )->spol()-SpolChoixCandidat) << std::endl;
             if(SpolChoixCandidat > abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) || Espace::getElection().getBulletinBlanc() != Espace::getElection().getListeCandidats()[i]){
                 SpolChoixCandidat = Espace::getElection().getListeCandidats()[i]->spol();
                 Getindice = i;
@@ -67,7 +67,7 @@ std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){
     }else{
         for(int i = 0; i < nbChoix; i++){
             if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc() || Espace::getElection().getListeCandidats()[i] != Espace::getElecteurEnCours()->getChoix()){
-                std::cout <<  " Boucle if push dans liste : " <<  *(Espace::getElection().getListeCandidats()[i]) << std::endl;
+                //std::cout <<  " Boucle if push dans liste : " <<  *(Espace::getElection().getListeCandidats()[i]) << std::endl;
                 listeTempBulletin.push_back(Espace::getElection().getListeCandidats()[i]); 
             }
         }
@@ -83,12 +83,12 @@ void TableDeDecharge::prendreBulletin(){
     while(nbBulletinAPrendre > Espace::getElection().getListeCandidats().size() || nbBulletinAPrendre < 2) {
         nbBulletinAPrendre = rand() % 10 + 2;
     }
-    std::cout << "NbBulletin : " << nbBulletinAPrendre << std::endl;
-    std::cout << " proba null : " << proba_null << " proba blanc : " << proba_blanc << std::endl;
-    std::cout << "randomChoixVote : " <<  RandomChoixVote << std::endl;
-    std::cout << "liste de candidat : " << std::endl;
-    Espace::getElection().afficher_candidat();
-    std::cout << " electeur : " <<  Espace::getElecteurEnCours()->spol() << std::endl;
+    //std::cout << "NbBulletin : " << nbBulletinAPrendre << std::endl;
+    //std::cout << " proba null : " << proba_null << " proba blanc : " << proba_blanc << std::endl;
+   // std::cout << "randomChoixVote : " <<  RandomChoixVote << std::endl;
+    //std::cout << "liste de candidat : " << std::endl;
+    //Espace::getElection().afficher_candidat();
+  //  std::cout << " electeur : " <<  Espace::getElecteurEnCours()->spol() << std::endl;
     if(RandomChoixVote <= proba_null*10){
         std::cout << "Coucou null" << std::endl;
         Espace::getElecteurEnCours()->ajouterBulletin(Espace::getElection().getBulletinBlanc());

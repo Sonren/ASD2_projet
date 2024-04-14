@@ -58,6 +58,12 @@ class Espace {
         //Définie l'élection associé a l'espace
         void setElection(Election e);
 
+        //rajoute une personne dans la file
+        void setFileEspace(Electeur* e);
+
+        //renvoie la premiere personne de file d'attente pour la sortir 
+        Electeur* popFileEspace();
+
     private:
         // Nom de l'espace
         std::string nom;

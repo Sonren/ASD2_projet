@@ -27,7 +27,7 @@ bool Isoloir::estVide(){
 }
 
 bool Isoloir::estPlein() {
-    return listeIsoloir.size()>=nbIsoloir;
+    return listeIsoloir.size() >= nbIsoloir;
 }
 
 void Isoloir::ajouterElecteur(Electeur* elec) {

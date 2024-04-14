@@ -93,3 +93,13 @@ Election Espace::getElection(){
 void Espace::setElection(Election e){
     election = e;
 }
+
+void Espace::setFileEspace(Electeur* e){
+    fileEspace.push(e);
+}
+
+Electeur* Espace::popFileEspace(){
+    Electeur* temp = fileEspace.front(); 
+    fileEspace.pop();
+    return temp;
+}

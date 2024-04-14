@@ -22,7 +22,7 @@ using namespace elections;
 //Déclaration des Variables globales
 const int Tmax = 20;
 int T = 0;
-queue<Electeur> entree_; // Représente l'entrée du bureau de vote
+queue<Electeur*> entree_; // Représente l'entrée du bureau de vote
 bool aPrisSesBulletins = false; //vérifie que l'électeur présent dans la table de décharge à bien pris ces bulletins pour sortir de l'espace
 const int Dd = 3; //Temps minimum qu'un électeur passe dans la table de décharge
 const int Di = 6; //Temps minimum qu'un électeur passe dans un Isoloir
@@ -45,16 +45,16 @@ int main(void)
 
    // création des personnes
    std::vector<Personne*> vp = {
-      new Personne("A", "bic", 7),
-      new Personne("B", "gad", 9),
-      new Personne("C", "ann", 2),
-      new Personne("D", "pol", 5),
-      new Personne("E", "lam", 1),
-      new Personne("F", "bul", 10),
-      new Personne("G", "yap", 3),
-      new Personne("X", "nel", 5),
-      new Personne("Y", "rik", 2),
-      new Personne("Z", "pat", 8),
+      new Personne("Albert", "bic", 7),
+      new Personne("Bernard", "gad", 9),
+      new Personne("Christian", "ann", 2),
+      new Personne("Dominique", "pol", 5),
+      new Personne("Evelyne", "lam", 1),
+      new Personne("François", "bul", 10),
+      new Personne("Grégory", "yap", 3),
+      new Personne("Xavier", "nel", 5),
+      new Personne("Yves", "rik", 2),
+      new Personne("Zinedine", "pat", 8),
       new Personne (" ", "blanc", 0) //represente le vote blanc
    };
 
@@ -100,19 +100,19 @@ int main(void)
    cout << " ---------------Espace--------------" << endl;
 
    // Pour générer un nombre aléatoire entre 1 et 10ake
-   int randomNumber_vote = std::rand() % 10 + 1;
+   //int randomNumber_vote = std::rand() % 10 + 1;
 
-   TableDeVote *table_de_vote = new TableDeVote(randomNumber_vote,"table de vote", *(presidentielle), 10);
-
-   // Pour générer un nombre aléatoire entre 1 et 10
-   int randomNumber_decharge = std::rand() % 10 + 1;
-
-   TableDeDecharge *table_de_decharge = new TableDeDecharge(randomNumber_decharge,"table de décharge", *(presidentielle), 0.35,0.15);
+   TableDeVote *table_de_vote = new TableDeVote(Dv,"table de vote", *(presidentielle), 10);
 
    // Pour générer un nombre aléatoire entre 1 et 10
-   int randomNumber_isoloir = std::rand() % 10 + 1;
+   //int randomNumber_decharge = std::rand() % 10 + 1;
 
-   Isoloir *isoloir = new Isoloir(randomNumber_isoloir,"isoloir", *(presidentielle), 3);
+   TableDeDecharge *table_de_decharge = new TableDeDecharge(Dd,"table de décharge", *(presidentielle), 0.35,0.15);
+
+   // Pour générer un nombre aléatoire entre 1 et 10
+   //int randomNumber_isoloir = std::rand() % 10 + 1;
+
+   Isoloir *isoloir = new Isoloir(Di,"isoloir", *(presidentielle), 3);
 
 
    
@@ -126,6 +126,7 @@ int main(void)
    table_de_vote->afficherInfos(); 
    */
 
+   /*
    cout <<  endl << "decharge" << endl;
    table_de_decharge->afficherInfos();
    table_de_decharge->ajouterElecteur(ve[6]);
@@ -136,32 +137,35 @@ int main(void)
    cout << endl << "--------Isoloir-----" << endl;
    isoloir->ajouterElecteur(ve[1]);
    isoloir->afficherInfos();
-
+   */
 
 
 
    //Boucle principal 
    cout<<"BOUCLE PRINCIPAL"<<endl;
    cout<<endl;
-   while (T <= Tmax && table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide() ) {
+
+
+   //Tant que le T est inférieur à Tmax ou que l'intégralité des espaces sont vides
+   while (T <= Tmax || !( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide()) ) {
       cout<<"T = "<<T<<endl;
 
       //Insertion des électeurs dans le bureau de vote
       cout<<"ENTREE"<<endl;
 
-      if (T==1) {
+      if (T==0) {
          cout<<ve[0]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[0]));
+         entree_.push(ve[0]);
       }
 
       if (T==3) {
          cout<<ve[1]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[1]));
+         entree_.push(ve[1]);
       }
 
       if (T==5) {
          cout<<ve[2]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[2]));
+         entree_.push(ve[2]);
       }
 
       cout<<"DECHARGE"<<endl;
@@ -172,8 +176,8 @@ int main(void)
       if (table_de_decharge->estVide()) {
          //On vérifie que l'Entrée n'est pas vide, sinon on ne fait rien
          if(!entree_.empty()) {
-            cout<<entree_.front().nom() <<" entre"<<endl;
-            table_de_decharge->ajouterElecteur(&(entree_.front()));
+            cout<<entree_.front()->nom() <<" entre"<<endl;
+            table_de_decharge->ajouterElecteur(entree_.front());
             entree_.pop();
          }
       //Sinon, si la personne présente dans la table de décharge n'a pas encore pris ses bulletins, elle le fait
@@ -190,20 +194,27 @@ int main(void)
          if (table_de_decharge->getElecteurEnCours()->getDuree()<=0 && aPrisSesBulletins ) {
             //On place l'électeur qui sort de la décharge dans la fileAttente de l'espace isoloir de manière provisoire
             cout<<table_de_decharge->getElecteurEnCours()->nom()<<" sort"<<endl;
-            isoloir->getFile().push(table_de_decharge->sortirElecteur());
+            isoloir->getFile().push(table_de_decharge->getElecteurEnCours());
+            cout<<"taille file Attente isoloir :"<<isoloir->getFile().size()<<endl;
+            //On le retire de la table de décharge
+            table_de_decharge->sortirElecteur();
             //On réinitialise aPrisSesBulletins
             aPrisSesBulletins = false;
          }
       }
 
       cout<<"ISOLOIR"<<endl;
+      
 
       //INSERTION
 
       //On vérifie si les isoloirs ne sont pas pleins
       if (!isoloir->estPlein()) {
+         
+         //cout<<!isoloir->getFile().empty()<<endl;
          //si il ne le sont pas on vérifie si il y a un électeur qui attend pour rentrer
-         if (isoloir->getFile().empty()){
+         if (!isoloir->getFile().empty()){
+            
             //Si oui on le fait rentrer dans un isoloir
             cout<<isoloir->getFile().front()->nom()<<" entre"<<endl;
             isoloir->ajouterElecteur(isoloir->getFile().front());
@@ -211,12 +222,12 @@ int main(void)
             isoloir->getFile().pop();
          }
       }
-
-
+      
+      
       //RETRAIT
 
       //Si les isoloirs ne sont pas tous vide
-      if(isoloir->getListeIsoloir().empty()) {
+      if(!isoloir->getListeIsoloir().empty()) {
          //Si le premier arrivée dans son isoloir a sa durée à 0 ou moins, on le sort de l'espace
          if (isoloir->getListeIsoloir().front()->getDuree() <= 0){
 
@@ -227,6 +238,7 @@ int main(void)
             table_de_vote->getFile().push(isoloir->sortirElecteur());
          }
       }
+      
 
       cout<<"VOTE"<<endl;
 
@@ -234,6 +246,7 @@ int main(void)
 
       //Si il n'y a persone à la table de vote
       if (table_de_vote->getElecteurEnCours() == NULL) {
+         
          //Si il y a quelqu'un dans la fileAttente de la table de vote on le fait rentrer
          if (!table_de_vote->getFile().empty()) {
             table_de_vote->setElecteurEnCours(table_de_vote->getFile().front());
@@ -241,30 +254,47 @@ int main(void)
          }
       }
 
+      //RETRAIT
+
       //Si il y a un personne à la table de vote
       if (table_de_vote->getElecteurEnCours() != NULL) {
          table_de_vote->vote();
          table_de_vote->signer_liste(table_de_vote->getElecteurEnCours()->id());
-         
-      }
 
-      //RETRAIT
-      
-      //Si l'électeur à signé la liste d'émargement et que sa durée est à 0 ou moins, on le sort de l'espace
-      if (table_de_vote->getElecteurEnCours()->getDuree() <= 0 && table_de_vote->a_signer(table_de_vote->getElecteurEnCours()->id())) {
-         cout<<table_de_vote->getElecteurEnCours()->nom()<<" sort"<<endl;
-         cout<<"SORTIE"<<endl;
-         cout<< table_de_vote->getElecteurEnCours()->nom() <<" sort"<<endl;
-         table_de_vote->setElecteurEnCours(nullptr);
+         //Si l'électeur à signé la liste d'émargement et que sa durée est à 0 ou moins, on le sort de l'espace
+         if (table_de_vote->getElecteurEnCours()->getDuree() <= 0 && table_de_vote->a_signer(table_de_vote->getElecteurEnCours()->id())) {
+            cout<<table_de_vote->getElecteurEnCours()->nom()<<" sort"<<endl;
+            cout<<"SORTIE"<<endl;
+            cout<< table_de_vote->getElecteurEnCours()->nom() <<" sort"<<endl;
+            table_de_vote->setElecteurEnCours(nullptr);
+         }
       }
+         
+      
+      
+      
+      
+      
+      
 
 
       //TODO : Vérifier les actions réalisés dans les boucles
       //TODO : Décrémenter le temps des électeurs à chaque passage de boucle
+      cout<<"durée de albert"<<endl;
+      cout<<ve[0]->getDuree()<<endl;
+      ve[0]->setDuree(ve[0]->getDuree()-1);
+      cout<<ve[0]->getDuree()<<endl;
 
+      ve[1]->setDuree(ve[1]->getDuree()-1);
+
+      ve[2]->setDuree(ve[2]->getDuree()-1);
 
       T++;
+   
    }
+
+   entree_.push(ve[5]);
+   cout<<"taille file Attente entre :"<<entree_.size()<<endl;
 
 
     // destruction des personnes

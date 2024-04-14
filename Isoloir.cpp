@@ -34,6 +34,7 @@ void Isoloir::ajouterElecteur(Electeur* elec) {
     if (estPlein()) {
         Espace::getFile().push(Espace::getElecteurEnCours());
     } else {
+        elec->setDuree(Espace::getDuree());
         listeIsoloir.push(elec);
     }
 }

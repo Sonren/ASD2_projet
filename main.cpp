@@ -22,7 +22,7 @@ using namespace elections;
 //Déclaration des Variables globales
 const int Tmax = 20;
 int T = 0;
-queue<Electeur> entree_; // Représente l'entrée du bureau de vote
+queue<Electeur*> entree_; // Représente l'entrée du bureau de vote
 bool aPrisSesBulletins = false; //vérifie que l'électeur présent dans la table de décharge à bien pris ces bulletins pour sortir de l'espace
 const int Dd = 3; //Temps minimum qu'un électeur passe dans la table de décharge
 const int Di = 6; //Temps minimum qu'un électeur passe dans un Isoloir
@@ -147,7 +147,7 @@ int main(void)
 
 
    //Tant que le T est inférieur à Tmax ou que l'intégralité des espaces sont vides
-   while (T <= Tmax || ( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide()) ) {
+   while (T <= Tmax || !( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide()) ) {
       cout<<"T = "<<T<<endl;
 
       //Insertion des électeurs dans le bureau de vote
@@ -155,17 +155,17 @@ int main(void)
 
       if (T==0) {
          cout<<ve[0]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[0]));
+         entree_.push(ve[0]);
       }
 
       if (T==3) {
          cout<<ve[1]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[1]));
+         entree_.push(ve[1]);
       }
 
       if (T==5) {
          cout<<ve[2]->nom()<<" entre"<<endl;
-         entree_.push(*(ve[2]));
+         entree_.push(ve[2]);
       }
 
       cout<<"DECHARGE"<<endl;
@@ -176,8 +176,8 @@ int main(void)
       if (table_de_decharge->estVide()) {
          //On vérifie que l'Entrée n'est pas vide, sinon on ne fait rien
          if(!entree_.empty()) {
-            cout<<entree_.front().nom() <<" entre"<<endl;
-            table_de_decharge->ajouterElecteur(&(entree_.front()));
+            cout<<entree_.front()->nom() <<" entre"<<endl;
+            table_de_decharge->ajouterElecteur(entree_.front());
             entree_.pop();
          }
       //Sinon, si la personne présente dans la table de décharge n'a pas encore pris ses bulletins, elle le fait
@@ -194,21 +194,27 @@ int main(void)
          if (table_de_decharge->getElecteurEnCours()->getDuree()<=0 && aPrisSesBulletins ) {
             //On place l'électeur qui sort de la décharge dans la fileAttente de l'espace isoloir de manière provisoire
             cout<<table_de_decharge->getElecteurEnCours()->nom()<<" sort"<<endl;
-            isoloir->getFile().push(table_de_decharge->sortirElecteur());
+            isoloir->getFile().push(table_de_decharge->getElecteurEnCours());
+            cout<<"taille file Attente isoloir :"<<isoloir->getFile().size()<<endl;
+            //On le retire de la table de décharge
+            table_de_decharge->sortirElecteur();
             //On réinitialise aPrisSesBulletins
             aPrisSesBulletins = false;
          }
       }
 
       cout<<"ISOLOIR"<<endl;
+      
 
       //INSERTION
 
       //On vérifie si les isoloirs ne sont pas pleins
       if (!isoloir->estPlein()) {
          
+         //cout<<!isoloir->getFile().empty()<<endl;
          //si il ne le sont pas on vérifie si il y a un électeur qui attend pour rentrer
          if (!isoloir->getFile().empty()){
+            
             //Si oui on le fait rentrer dans un isoloir
             cout<<isoloir->getFile().front()->nom()<<" entre"<<endl;
             isoloir->ajouterElecteur(isoloir->getFile().front());
@@ -286,6 +292,9 @@ int main(void)
       T++;
    
    }
+
+   entree_.push(ve[5]);
+   cout<<"taille file Attente entre :"<<entree_.size()<<endl;
 
 
     // destruction des personnes

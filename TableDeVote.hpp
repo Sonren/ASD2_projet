@@ -16,7 +16,7 @@ typedef std::unordered_map<elections::Personne*, int> map_Personne_int;
 class TableDeVote : public Espace {
     public:
         // Constructeur prenant en paramètres le nombre de dés, le nom de la table, le nombre d'électeurs, ainsi que la liste de candidats
-        TableDeVote(const int De, const std::string& nom, Election elec, const int nb_elec);
+        TableDeVote(const int De, const std::string& nom, Election elec);
         
         // Fonction pour enregistrer la signature d'un électeur avec son ID
         void signer_liste(int ID);
@@ -31,12 +31,6 @@ class TableDeVote : public Espace {
         void afficheListe();
 
     private:
-        // Tableau dynamique pour enregistrer les signatures des électeurs
-        bool* liste_emargement;
-        
-        // Nombre total d'électeurs attendus
-        int nb_electeur;
-
         //represente l'urne pour voter sous forme de table de hchage 
         map_Personne_int urne;
     };

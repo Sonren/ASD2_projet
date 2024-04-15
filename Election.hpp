@@ -14,6 +14,7 @@
 
 using namespace elections;
 
+
 // Déclaration de la classe Election
 class Election {
 public:
@@ -75,6 +76,7 @@ private:
 
     // pointeur vers le candidat blanc (bulletin blanc)
     Personne * bulletin_blanc;
+
 };
 
 #endif

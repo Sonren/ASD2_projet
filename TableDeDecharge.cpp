@@ -48,9 +48,9 @@ int TableDeDecharge::trouverVote(){
             std::cout << " Spol elec en cours : " << Espace::getElecteurEnCours( )->spol() << std::endl;
             std::cout << " Spol candidat de i : " << Espace::getElection().getListeCandidats()[i]->spol() << std::endl;
             std::cout << "resultat du calcul : " << abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) << std::endl;
-            std::cout << " bool if : " << SpolChoixCandidat < Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol() << std::endl;
-            if(SpolChoixCandidat < abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) || Espace::getElection().getBulletinBlanc() != Espace::getElection().getListeCandidats()[i]){
-                SpolChoixCandidat = Espace::getElection().getListeCandidats()[i]->spol();
+            std::cout << " bool if : " << (SpolChoixCandidat < Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) << std::endl;
+            if(SpolChoixCandidat > abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol()) && Espace::getElection().getBulletinBlanc() != Espace::getElection().getListeCandidats()[i]){
+                SpolChoixCandidat = abs(Espace::getElecteurEnCours( )->spol()-Espace::getElection().getListeCandidats()[i]->spol());
                 Getindice = i;
 
             } 

@@ -330,6 +330,11 @@ int main(void){
       cout << " vote Null " << endl;
    }
 
+   cout << "-----------------------------liste candidat-----------------" << endl;
+   for(int i=0; i<vc.size();i++){
+      cout << "nom du candidat : " << vc[i]->nom() << "  spol : " << vc[i]->spol() << endl;
+   }
+
 
 
     // destruction des personnes

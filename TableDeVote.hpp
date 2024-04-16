@@ -18,17 +18,8 @@ class TableDeVote : public Espace {
         // Constructeur prenant en paramètres le nombre de dés, le nom de la table, le nombre d'électeurs, ainsi que la liste de candidats
         TableDeVote(const int De, const std::string& nom, Election elec);
         
-        // Fonction pour enregistrer la signature d'un électeur avec son ID
-        void signer_liste(int ID);
-        
-        // Fonction pour vérifier si un électeur a déjà signé la liste d'émargement
-        bool a_signer(int ID);
-        
         // Fonction pour enregistrer le vote
         void vote();
-
-        //fonction qui affiche la liste d'emargement
-        void afficheListe();
 
     private:
         //represente l'urne pour voter sous forme de table de hchage 

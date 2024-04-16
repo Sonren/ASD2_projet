@@ -20,7 +20,7 @@ void TableDeVote::vote() {
 
     auto it = urne.find(cle);
 
-    if(it != urne.end()) {
+    if(it != urne.end()) {    //TODO a revoir et faire l'affichage des resultats
         it->second = it->second + 1;
     }
 }

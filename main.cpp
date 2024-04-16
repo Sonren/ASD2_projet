@@ -85,7 +85,7 @@ int main(void){
    };
 
    //liste qui permet a un electeur de signer et donc de valider son vote
-   bool liste_emargement[ve.size() +11] ={false} ;
+   bool liste_emargement[ve.size() + vp.size()] ={false} ;
    
    
    // TODO
@@ -95,18 +95,7 @@ int main(void){
   
 
    Election *presidentielle = new Election("presidentielle", vc, ve);
-   /*cout <<  "nom de l'election : " << presidentielle->getNom() << endl;
-   cout << "liste des candidats : " << endl << endl;
-   presidentielle->afficher_candidat();
-   cout << "liste des electeurs : " << endl << endl; matching function for call to ‘TableDeDecharge::TableDeDecharge(int&, const char [19], double, double, Election*&)’
-   96 | e(randomNumber_decharge,"table de décharge",0.35,0.15, 
-   presidentielle->afficher_electeur();
-   bool bol = presidentielle->est_sur_liste(0,2,vp[1]);
-   cout << bol<< endl;
-   presidentielle->afficher_electeur();
-   bool bol1 = presidentielle->ajouter_electeur(0,2,vp[3]);
-   presidentielle->afficher_electeur();
-   cout << bol1<< endl;*/
+   
    presidentielle->setBulletinBlanc(vc[3]);
 
 
@@ -128,30 +117,6 @@ int main(void){
    Isoloir *isoloir = new Isoloir(Di,"isoloir", *(presidentielle), 3);
 
 
-   
-   /* 
-   table_de_vote->afficherInfos();
-   table_de_vote->ajouterElecteur(ve[0]);
-   table_de_vote->afficherInfos();
-   table_de_vote->ajouterElecteur(ve[1]);
-   table_de_vote->afficherInfos();
-   table_de_vote->sortirElecteur();
-   table_de_vote->afficherInfos(); 
-   */
-
-   /*
-   cout <<  endl << "decharge" << endl;
-   table_de_decharge->afficherInfos();
-   table_de_decharge->ajouterElecteur(ve[6]);
-   table_de_decharge->prendreBulletin();
-   table_de_decharge->getElecteurEnCours()->afficherListeBulletin();
-   table_de_decharge->afficherInfos();
-
-   cout << endl << "--------Isoloir-----" << endl;
-   isoloir->ajouterElecteur(ve[1]);
-   isoloir->afficherInfos();
-   */
-
 
 
    //Boucle principal 
@@ -160,7 +125,7 @@ int main(void){
 
    int numeroListe = 0;
    //Tant que le T est inférieur à Tmax ou que l'intégralité des espaces sont vides
-   while (T <= Tmax || !( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide()) ) {
+   while (T <= Tmax || !( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide() && table_de_decharge->getFile().empty() == true && isoloir->getFile().empty() == true && table_de_vote->getFile().empty() == true) ) {
       cout<< endl << endl << "T = "<<T<<endl;
       cout << " table de decharge : " << table_de_decharge->estVide() << endl;
       cout << " table de vote : " << table_de_vote->estVide() << endl;
@@ -171,7 +136,6 @@ int main(void){
       cout<<"ENTREE"<<endl;
 
       if (T==0 || T == 3 || T == 5) {
-         cout << " liste emargement : " << liste_emargement[ve[numeroListe]->id()] << endl;
          if(liste_emargement[ve[numeroListe]->id()] == false){
             entrer(ve[numeroListe]);
             numeroListe++;
@@ -242,41 +206,23 @@ int main(void){
       if(!isoloir->getListeIsoloir().empty()) {
          //Si le premier arrivée dans son isoloir a sa durée à 0 ou moins, on le sort de l'espace
          if (isoloir->getListeIsoloir().front()->getDuree() <= 0){
-
-            //TODO: afficher le choix de bulletin
+            if(isoloir->getListeIsoloir().front()->getChoix() != NULL){
+               cout << isoloir->getListeIsoloir().front()->nom() << " choisi " << *(isoloir->getListeIsoloir().front()->getChoix()) << endl;
+            }else{
+               cout << isoloir->getListeIsoloir().front()->nom() << " choisi bulletin NULL " << endl;
+            }
 
             //On place l'électeur qui sort de la décharge dans la fileAttente de la table de vote de manière provisoire
             cout << isoloir->getListeIsoloir().front()->nom() <<" sort"<<endl;
-            table_de_vote->setFileEspace(isoloir->sortirElecteur());
+            table_de_vote->setFileEspace(isoloir->getListeIsoloir().front());
+            cout<<"taille file Attente table de vote :"<<table_de_vote->getFile().size()<<endl;
+            isoloir->sortirElecteur();
+
+            
          }
       }
       
       cout<<"VOTE"<<endl;
-   
-     /* //INSERTION
-
-      //Si il n'y a persone à la table de vote
-      if (table_de_vote->getElecteurEnCours() == NULL) {
-         //Si il y a quelqu'un dans la fileAttente de la table de vote on le fait rentrer
-         if (!table_de_vote->getFile().empty()) {
-            table_de_vote->setElecteurEnCours(table_de_vote->popFileEspace()); //ici on recupere l'electeur en front tout en l'elevant de la file d'attente
-         }
-      }
-
-      //RETRAIT
-
-      //Si il y a une personne à la table de vote
-      if (table_de_vote->getElecteurEnCours() != NULL) {
-         table_de_vote->vote();
-         liste_emargement[table_de_vote->getElecteurEnCours()->id()] = true;
-         //Si l'électeur à signé la liste d'émargement et que sa durée est à 0 ou moins, on le sort de l'espace
-         if (table_de_vote->getElecteurEnCours()->getDuree() <= 0 && liste_emargement[table_de_vote->getElecteurEnCours()->id()] == true) {
-            cout<<table_de_vote->getElecteurEnCours()->nom()<<" sort"<<endl;
-            cout<<"SORTIE"<<endl;
-            cout<< table_de_vote->getElecteurEnCours()->nom() <<" sort"<<endl;
-            table_de_vote->sortirElecteur();
-         }
-      } */
 
       //INSERTION
 
@@ -285,7 +231,7 @@ int main(void){
          //On vérifie que la file d'attente n'est pas vide, sinon on ne fait rien
          if(!table_de_vote->getFile().empty()) {
             cout<<table_de_vote->getFile().front()->nom() <<" entre"<<endl;
-            table_de_vote->ajouterElecteur(isoloir->getFile().front());
+            table_de_vote->ajouterElecteur(table_de_vote->getFile().front());
             table_de_vote->popFileEspace();
          }
       //Sinon, si la personne présente dans la table de vote n'a pas encore voter, elle le fait
@@ -303,6 +249,8 @@ int main(void){
          if (table_de_vote->getElecteurEnCours()->getDuree()<=0 && aVoter && liste_emargement[table_de_vote->getElecteurEnCours()->id()] == true) {
             cout<<table_de_vote->getElecteurEnCours()->nom()<<" sort"<<endl;
             //On le retire de la table de décharge
+            cout<<"SORTIE"<<endl;
+            cout<< table_de_vote->getElecteurEnCours()->nom() <<" sort"<<endl;
             table_de_vote->sortirElecteur();
             //On réinitialise aPrisSesBulletins
             aVoter = false;
@@ -317,10 +265,9 @@ int main(void){
 
       //TODO : Vérifier les actions réalisés dans les boucles
       //TODO : Décrémenter le temps des électeurs à chaque passage de boucle
-      cout<<"durée de albert"<<endl;
-      cout<<ve[0]->getDuree()<<endl;
+      
       ve[0]->setDuree(ve[0]->getDuree()-1);
-      cout<<ve[0]->getDuree()<<endl;
+      
 
       ve[1]->setDuree(ve[1]->getDuree()-1);
 
@@ -364,6 +311,25 @@ int main(void){
    cout << "taille file d'attente isoloir :" << isoloir->getFile().size() << endl;
    entree_.push(ve[5]);
    cout<<"taille file Attente entre :"<<entree_.size()<<endl;
+
+   cout << "-----------------------Choix vote-----------------------" << endl;
+
+   if(ve[0]->getChoix() != NULL){
+      cout << " Choix de " << ve[0]->nom() << " : " << *(ve[0]->getChoix()) << endl;
+   }else{
+      cout << " vote Null " << endl;
+   }
+   if(ve[1]->getChoix() != NULL){
+      cout << " Choix de " << ve[1]->nom() << " : " << *(ve[1]->getChoix()) << endl;
+   }else{
+      cout << " vote Null " << endl;
+   }
+   if(ve[2]->getChoix() != NULL){
+      cout << " Choix de " << ve[2]->nom() << " : " << *(ve[2]->getChoix()) << endl;
+   }else{
+      cout << " vote Null " << endl;
+   }
+
 
 
     // destruction des personnes

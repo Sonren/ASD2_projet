@@ -21,6 +21,9 @@ class TableDeVote : public Espace {
         // Fonction pour enregistrer le vote
         void vote();
 
+        //Retourne l'urne
+        map_Personne_int getUrne() const;
+
     private:
         //represente l'urne pour voter sous forme de table de hchage 
         map_Personne_int urne;

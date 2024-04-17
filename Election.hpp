@@ -63,6 +63,9 @@ public:
     // Affiche la liste des électeurs
     void afficher_electeur();
 
+    //Afficher les informations d'une élection
+    void afficher_election();
+
 
 private:
     // Nom de l'élection

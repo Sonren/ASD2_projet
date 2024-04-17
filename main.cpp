@@ -299,15 +299,15 @@ int main(void){
 
    cout << "Dépouillement : " << endl;
 
-   /*
+  /* 
    for (auto it = table_de_vote->getUrne().begin() ; it != table_de_vote->getUrne().end() ; ++it) {
       cout<<test
-      string candidat = it->first->nom();
+      std::String candidat = it->first->nom();
       int nombreDeVoix = it->second;
       cout << "Candidat: " << candidat << ", Nombre de voix: " << nombreDeVoix << endl;
    }
 
-   */
+  */ 
 
 
 

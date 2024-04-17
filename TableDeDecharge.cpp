@@ -65,7 +65,7 @@ std::vector<Personne*> TableDeDecharge::chercherListeChoix(int nbChoix){
         }
     }else{
         for(int i = 0; i < nbChoix; i++){
-            if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc() || Espace::getElection().getListeCandidats()[i] != Espace::getElecteurEnCours()->getChoix()){
+            if(Espace::getElection().getListeCandidats()[i] != Espace::getElection().getBulletinBlanc() && Espace::getElection().getListeCandidats()[i] != Espace::getElecteurEnCours()->getChoix()){
                 listeTempBulletin.push_back(Espace::getElection().getListeCandidats()[i]); 
             }
         }

@@ -299,7 +299,7 @@ int main(void){
 
    cout << "Dépouillement : " << endl;
 
-  /* 
+  
    for (auto it = table_de_vote->getUrne().begin() ; it != table_de_vote->getUrne().end() ; ++it) {
       cout<<test
       std::String candidat = it->first->nom();
@@ -307,7 +307,7 @@ int main(void){
       cout << "Candidat: " << candidat << ", Nombre de voix: " << nombreDeVoix << endl;
    }
 
-  */ 
+  
 
 
 

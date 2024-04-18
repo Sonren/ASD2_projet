@@ -9,7 +9,7 @@ TableDeVote::TableDeVote(const int De, const std::string& nom, Election elec)
     : Espace(De, nom, elec)
 {
     //Boucle qui rempli l'urne avec les différents candidats
-    for (Personne* pers : elec.getListeCandidats()) {
+    for (Personne* pers : Espace::getElection().getListeCandidats()) {
         //Chaque candidat commence avec 0 vote en sa faveur
         urne.insert(std::make_pair(pers,0));
     }

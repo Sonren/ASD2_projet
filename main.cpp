@@ -100,6 +100,8 @@ int main(void){
 
    //Déclaration des différents espace du bureau de vote
 
+   
+
    TableDeVote *table_de_vote = new TableDeVote(Dv,"table de vote", *(presidentielle));
 
    TableDeDecharge *table_de_decharge = new TableDeDecharge(Dd,"table de décharge", *(presidentielle), 0.35,0.15);
@@ -297,17 +299,15 @@ int main(void){
    cout << "Participation : " << static_cast<double>(nbVote) / ve.size() * 100 <<"%" << endl;
    cout << "Abstention : " <<100 - static_cast<double>(nbVote) / ve.size() * 100 << "%" << endl;
 
+   cout<<endl;
    cout << "Dépouillement : " << endl;
+   cout<<endl;
 
-  /* 
-   for (auto it = table_de_vote->getUrne().begin() ; it != table_de_vote->getUrne().end() ; ++it) {
-      cout<<test
-      std::String candidat = it->first->nom();
-      int nombreDeVoix = it->second;
-      cout << "Candidat: " << candidat << ", Nombre de voix: " << nombreDeVoix << endl;
-   }
 
-  */ 
+   
+   table_de_vote->afficherUrne();
+   
+  
 
 
 

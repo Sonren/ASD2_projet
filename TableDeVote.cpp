@@ -4,12 +4,14 @@
 */
 
 #include "TableDeVote.hpp"
+#include <iostream>
+
 
 TableDeVote::TableDeVote(const int De, const std::string& nom, Election elec)
     : Espace(De, nom, elec)
 {
     //Boucle qui rempli l'urne avec les différents candidats
-    for (Personne* pers : elec.getListeCandidats()) {
+    for (Personne* pers : Espace::getElection().getListeCandidats()) {
         //Chaque candidat commence avec 0 vote en sa faveur
         urne.insert(std::make_pair(pers,0));
     }
@@ -27,6 +29,16 @@ void TableDeVote::vote() {
 
 map_Personne_int TableDeVote::getUrne() const {
     return urne;
+}
+
+void TableDeVote::afficherUrne() {
+    for (const auto& pair : urne) {
+        if ((*pair.first).prenom() == "blanc") {
+            std::cout << "vote blanc : " << pair.second << "(" <<static_cast<double>(pair.second) / Espace::getElection().getListeCandidats().size() * 100 <<"% )" << std::endl;
+        } else {
+        std::cout << *pair.first << " : " << pair.second << "(" <<static_cast<double>(pair.second) / Espace::getElection().getListeCandidats().size() * 100 <<"% )" << std::endl;
+        }
+    }
 }
 
 

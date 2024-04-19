@@ -14,6 +14,7 @@ TableDeVote::TableDeVote(const int De, const std::string& nom, Election elec)
     for (Personne* pers : Espace::getElection().getListeCandidats()) {
         //Chaque candidat commence avec 0 vote en sa faveur
         urne.insert(std::make_pair(pers,0));
+        
     }
 };
 

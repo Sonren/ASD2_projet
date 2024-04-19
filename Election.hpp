@@ -44,9 +44,15 @@ public:
 
     //permet de recuperer l'adresse de la personne qui represente le bulletin blanc
     Personne* getBulletinBlanc();
+
+    //permet de recupérer la liste d'électeur 
+    std::vector<Electeur*> getListeElecteur();
     
     // Ajoute un candidat à la liste des candidats
     void ajouter_candidat(Personne* candi);
+
+    //Ajoute unnvecteur de candidat en plus a la liste de candidat
+    void ajouter_des_candidats(std::vector<Personne*> vectCandi);
     
     // Retire un candidat de la liste des candidats par son ID
     void retirer_candidat(int id);

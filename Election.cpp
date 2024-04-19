@@ -28,7 +28,8 @@ Election::Election(const std::string& nom, std::vector <Personne*> liste_candida
 }
 
 Election::~Election(){
-    this->candidats.clear();
+    candidats.clear();
+    liste_electorale.clear();
 }
 
 std::string Election::getNom() const {
@@ -51,8 +52,18 @@ Personne* Election::getBulletinBlanc(){
     return bulletin_blanc;
 }
 
+std::vector<Electeur*> Election::getListeElecteur(){
+    return liste_electorale;
+}
+
 void Election::ajouter_candidat(Personne* candi){
    candidats.push_back(candi);
+}
+
+void Election::ajouter_des_candidats(std::vector<Personne*> vectCandi){
+    for(long unsigned int j=0; j<vectCandi.size(); j++){
+        candidats.push_back(vectCandi[j]);
+    }
 }
 
 
@@ -130,12 +141,10 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
         // Cas où la personne doit être insérée avant l'élément médian
         if (mediane == deb) {
             liste_electorale.insert(liste_electorale.begin(), e); // Insère la personne au début de la liste
-            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         }
         if (!cmp.operator()(e, liste_electorale[mediane - 1])) {
             liste_electorale.insert(liste_electorale.begin() + mediane - 1, e); // Insère la personne à l'indice médian - 1
-            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         } else {
             // Recherche récursive dans la première moitié de la liste
@@ -145,12 +154,10 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
         // Cas où la personne doit être insérée après l'élément médian
         if (mediane == end) {
             liste_electorale.insert(liste_electorale.begin() + mediane + 1, e); // Insère la personne à la fin de la liste
-            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         }
         if (!cmp.operator()(e, liste_electorale[mediane + 1]) || mediane == end) {
             liste_electorale.insert(liste_electorale.begin() + mediane + 1, e); // Insère la personne à l'indice médian + 1
-            std::cout << "l'electeur a été ajouté avec succès " << std::endl;
             return a_été_ajouté = true;
         } else {
             // Recherche récursive dans la deuxième moitié de la liste
@@ -176,7 +183,7 @@ void Election::afficher_electeur(){
 
 void Election::afficher_election() {
 
-    std::cout << "ELECTION : " << nom_election << std::endl;
+    std::cout << "ELECTION : " << nom_election << std::endl <<std::endl;
     std::cout << "Liste des candidats : " << std::endl;
     afficher_candidat();
 

@@ -25,7 +25,7 @@ class TableDeVote : public Espace {
         map_Personne_int getUrne() const;
 
         //Affiche le contenu d l'urne
-        void afficherUrne();
+        void afficherUrne(int nbAbsent);
 
     private:
         //represente l'urne pour voter sous forme de table de hchage 

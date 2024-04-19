@@ -22,7 +22,7 @@ using namespace std;
 using namespace elections;
 
 //Déclaration des Variables globales
-const int Tmax = 10;
+const int Tmax = 30;
 int T = 0;
 queue<Electeur*> entree_; // Représente l'entrée du bureau de vote
 bool aPrisSesBulletins = false; //vérifie que l'électeur présent dans la table de décharge à bien pris ces bulletins pour sortir de l'espace
@@ -33,6 +33,8 @@ const int Dv = 4; //Temps minimum qu'un électeur passe dans la table de vote
 int numeroListe = 0;
 int nbVote = 0;//nombre de vote effectué dans le bureau
 int nbVoteNul = 0; // Nombre de vote nul
+int nbElecteurInVector = 16; //nombre d'électeur dans le bureau
+int nbCandidatInVector = 5; //nombre de candidat se présentant a l'élection
 
 
 
@@ -66,35 +68,50 @@ int main(void){
       new Personne("Xavier", "nel", 5),
       new Personne("Yves", "rik", 2),
       new Personne("Zinedine", "pat", 8),
-      new Personne (" ", "blanc", 0) //represente le vote blanc
+      new Personne (" ", "blanc", 0), //represente le vote blanc
+      new Personne("Jacques", "jean", 4), //le président
+
+      new Personne("Arthur", "bic", 7),
+      new Personne("Baptiste", "gad", 9),
+      new Personne("Charles", "ann", 2),
+      new Personne("Damien", "pol", 5),
+      new Personne("Eva", "lam", 1),
+      new Personne("Fifi", "bul", 10),
+      new Personne("Gerard", "yap", 3),
+      new Personne("Xav", "nel", 5),
+      new Personne("Yvonne", "rik", 2),
+      new Personne("Zizou", "pat", 8)
    };
 
+   if(vp.size() == 0){
+      cout << " Il n'y a aucune personne dans la liste" << endl <<  "Fin de l'élection " << endl;
+      exit(0);
+   }
 
-   std::vector<Electeur*> ve = {
-      PersonneToElecteur(vp[0]),
-      PersonneToElecteur(vp[1]), 
-      PersonneToElecteur(vp[2]), 
-      PersonneToElecteur(vp[3]),
-      PersonneToElecteur(vp[4]),
-      PersonneToElecteur(vp[5]),
-      PersonneToElecteur(vp[6])
-   };
-
-
+   Personne* president = vp[11];
    
+   //on remplit le vecteur candiadat car on connait déja a l'avance qui se presente 
    std::vector<Personne*> vc = {
       vp[5], vp[6], vp[7], vp[10], vp[0]
    };
 
-   //Déclarations de la liste d'émargements
-   bool liste_emargement[ve.size() + vp.size()] ={false} ;
-
-
+   //vecteur ou tous les électeurs sont stocké, il est vide car on compte le remplir après
+   std::vector<Electeur*> ve = {};
   
    //Déclaration de l'élection
    
    Election *presidentielle = new Election("Euro 2024", vc, ve);
    presidentielle->setBulletinBlanc(vc[3]);
+
+   //ajout des électeurs et dans candidats dans leurs vecteur respactifs
+   for(int i=0; i<nbElecteurInVector; i++){
+      int finVect =0;
+      presidentielle->ajouter_electeur(0, finVect, PersonneToElecteur(vp[i]));
+      finVect++;
+   }
+
+   //Déclarations de la liste d'émargements
+   bool liste_emargement[presidentielle->getListeElecteur().size() + vp.size()] ={false} ;
 
    presidentielle->afficher_election();
    
@@ -108,13 +125,39 @@ int main(void){
    Isoloir *isoloir = new Isoloir(Di,"isoloir", *(presidentielle), 3);
 
 
+   //verification des vecteurs pour voir si ils ne sont pas vide et que l'élection peut se dérouler correctement
+   if(presidentielle->getListeElecteur().size() == 0){
+      cout<< "Aucun électeur ne s'est présenté au bureau de vote " << endl << "Le bureau ferme ses portes " << endl;
+      exit(0);
+   }
 
+   if(vc.size() == 0){
+      cout << "Aucun candidat ne se présente pour cette élection"  << endl << "L'élection se finie par un non lieu'" << endl;
+      exit(0);
+   }
+
+   //gestion des entrées dans le bureau de vote de manière aléatoire 
+   int nbElecteurInOffice = rand() % presidentielle->getListeElecteur().size() + (presidentielle->getListeElecteur().size()/2); // ici on cherche a déterminer le nombre d'électeur qui vont entrer dans le bureau de vote pour avoir un algorithme un minimum plus realiste nous avons décider qu'au moins la moitié des électeurs allait voter
+   int* tabTempEntrée = new int[nbElecteurInOffice]{0};
+   for(int i = 0; i < nbElecteurInOffice; i++){
+      int tempTemps = rand() % (Tmax+1)/4;
+      if(tabTempEntrée[i-1] != Tmax){
+         while(tempTemps <= tabTempEntrée[i-1] || tempTemps == 0 || tempTemps-tabTempEntrée[i-1] > 5){
+            tempTemps = rand() % (Tmax+1);
+         }
+         tabTempEntrée[i] = tempTemps;
+         for(int k=0; k<nbElecteurInOffice; k++){
+         }
+      }else{
+         tabTempEntrée[i] = -1; //on met le temps a -1 pour être sur que plus personne ne rentre comme le temps est décroissant
+      }
+   }
 
    //Boucle principal 
    
    cout<<endl;
 
-   cout<<"OUVERTURE DU BUREAU"<<endl;
+   cout<<"OUVERTURE DU BUREAU n°254"<<endl;
    //Tant que le T est inférieur à Tmax ou que l'intégralité des espaces sont vides
    while (T <= Tmax || !( table_de_decharge->estVide() && isoloir->estVide() && table_de_vote->estVide() && table_de_decharge->getFile().empty() == true && isoloir->getFile().empty() == true && table_de_vote->getFile().empty() == true) ) {
       cout<< endl << "T = "<<T<<endl;
@@ -122,14 +165,26 @@ int main(void){
       //Insertion des électeurs dans le bureau de vote
       cout<<"  ENTREE"<<endl;
 
-      if (T==0 || T == 3 || T == 5 || T == 9 || T == 15 || T == 17 || T == 19) {
-         if(liste_emargement[ve[numeroListe]->id()] == false){
-            entrer(ve[numeroListe]);
+      if(tabTempEntrée[numeroListe] == T){
+         if(liste_emargement[presidentielle->getListeElecteur()[numeroListe]->id()] == false){
+            entrer(presidentielle->getListeElecteur()[numeroListe]);
             numeroListe++;
          }else{
-            cout << " L'electeur " << *(ve[numeroListe]) << " a déja voté " << endl;
+            cout << " L'electeur " << *(presidentielle->getListeElecteur()[numeroListe]) << " a déja voté " << endl;
+            numeroListe++;
          }
       }
+      
+      //ancienne version pour enter dans le bureau sans aléatoire 
+      /*if (T==0 || T == 3 || T == 5 || T == 9 || T == 15 || T == 17 || T == 19) { // on choisit ici les auquels les différents électeurs vont entrer 
+         if(liste_emargement[presidentielle->getListeElecteur()[numeroListe]->id()] == false){
+            entrer(presidentielle->getListeElecteur()[numeroListe]);
+            numeroListe++;
+         }else{
+            cout << " L'electeur " << *(presidentielle->getListeElecteur()[numeroListe]) << " a déja voté " << endl;
+            numeroListe++;
+         }
+      }*/
 
       cout<<"  DECHARGE"<<endl;
    
@@ -251,104 +306,40 @@ int main(void){
       
       
       //Désincrémentation des durée de chaque électeur
-      for ( long unsigned int k = 0 ; k < ve.size() ; k++){
-         ve[k]->setDuree(ve[k]->getDuree()-1);
+      for ( long unsigned int k = 0 ; k < presidentielle->getListeElecteur().size() ; k++){
+         presidentielle->getListeElecteur()[k]->setDuree(presidentielle->getListeElecteur()[k]->getDuree()-1);
+      }
+
+      if(T==Tmax){
+         cout<<"FERMETURE ENTREE"<<endl;
       }
 
       T++; 
 
 
-      /*
-      if(table_de_decharge->estVide()){
-         cout << "Il n'y a personne dans la table de decharge " << endl;
-      }else{
-         if (table_de_decharge->getElecteurEnCours() != NULL){
-            cout << *(table_de_decharge->getElecteurEnCours()) << " est dans la table de decharge" << endl;
-         }else{
-            cout << "NULL table de decharge" << endl;
-         }
-      }
-      if(isoloir->estVide()){
-         cout << "Il n'y a personne dans l'isoloir' " << endl;
-      }else{
-         if (isoloir->getElecteurEnCours() != NULL){
-            cout << *(isoloir->getElecteurEnCours()) << " est dans l'isoloir'" << endl;
-         }else{
-            cout << "NULL isoloir" << endl;
-         }
-      }
-      if(table_de_vote->estVide()){
-         cout << "Il n'y a personne dans la table de vote " << endl;
-      }else{
-         if (table_de_vote->getElecteurEnCours() != NULL){
-            cout << *(table_de_vote->getElecteurEnCours()) << " est dans la table de vote" << endl;
-         }else{
-            cout << "NULL table de vote" << endl;
-         }
-      }
-      */
-   
    }//Fin BOUCLE PRINCIPAL
 
 
    cout<<endl;
-   cout<<"RESULTAT DU BUREAU :"<<endl;
+   cout<<"RESULTAT DU BUREAU 254:"<<endl;
+   cout<<"PRESIDENT : " << *(president)<<endl;
    cout<<endl;
 
-   cout << "nb electeurs : " << ve.size() << endl;
+   cout << "nb electeurs : " << presidentielle->getListeElecteur().size() << endl;
    cout << "nb vote : " << nbVote << endl;
 
    std::cout << std::fixed << std::setprecision(2); // Limite à 4 décimales
-   cout << "Participation : " << static_cast<double>(nbVote) / ve.size() * 100 <<"%" << endl;
-   cout << "Abstention : " <<100 - static_cast<double>(nbVote) / ve.size() * 100 << "%" << endl;
+   cout << "Participation : " << static_cast<double>(nbVote) / presidentielle->getListeElecteur().size() * 100 <<"%" << endl;
+   cout << "Abstention : " <<100 - static_cast<double>(nbVote) / presidentielle->getListeElecteur().size() * 100 << "%" << endl;
 
    cout<<endl;
    cout << "Dépouillement : " << endl;
    cout<<endl;
 
-
+   int nbVotant = (static_cast<double>(nbVote)+nbVoteNul / presidentielle->getListeElecteur().size());
    
-   table_de_vote->afficherUrne();
-   cout << "vote nul : " << nbVoteNul << " (" << static_cast<double>(nbVoteNul) / vc.size() * 100 << "% )" << endl;
-
-   
-  
-
-
-
-
-   /*
-
-   isoloir->setFileEspace(ve[0]);
-   cout << "taille file d'attente isoloir :" << isoloir->getFile().size() << endl;
-   cout << " pop : " << *(isoloir->popFileEspace()) << endl;
-   cout << "taille file d'attente isoloir :" << isoloir->getFile().size() << endl;
-   entree_.push(ve[5]);
-   cout<<"taille file Attente entre :"<<entree_.size()<<endl;
-
-   cout << "-----------------------Choix vote-----------------------" << endl;
-
-   if(ve[0]->getChoix() != NULL){
-      cout << " Choix de " << ve[0]->nom() << " : " << *(ve[0]->getChoix()) << endl;
-   }else{
-      cout << " vote Null " << endl;
-   }
-   if(ve[1]->getChoix() != NULL){
-      cout << " Choix de " << ve[1]->nom() << " : " << *(ve[1]->getChoix()) << endl;
-   }else{
-      cout << " vote Null " << endl;
-   }
-   if(ve[2]->getChoix() != NULL){
-      cout << " Choix de " << ve[2]->nom() << " : " << *(ve[2]->getChoix()) << endl;
-   }else{
-      cout << " vote Null " << endl;
-   }
-
-   cout << "-----------------------------liste candidat-----------------" << endl;
-   for( long unsigned int i = 0 ; i < vc.size() ; i++){
-      cout << "nom du candidat : " << vc[i]->nom() << "  spol : " << vc[i]->spol() << endl;
-   }
-   */
+   table_de_vote->afficherUrne(nbVotant);
+   cout << "vote nul : " << nbVoteNul << " (" << static_cast<double>(nbVoteNul) / presidentielle->getListeElecteur().size() * 100 << "% )" << endl;
 
 
 
@@ -359,4 +350,12 @@ int main(void){
    }
 
    return 0;
+
+   //destruction des objets
+   table_de_vote->~Espace();
+   table_de_decharge->~Espace();
+   isoloir->~Isoloir();
+   presidentielle->~Election();
+   delete tabTempEntrée;
+   
 }

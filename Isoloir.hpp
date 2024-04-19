@@ -40,7 +40,7 @@ class Isoloir : public Espace {
 
     private:
         // Nombre d'isoloirs différents dans l'espace Isoloir
-        int nbIsoloir;
+        long unsigned int nbIsoloir;
         
         // On utilise une queue pour représenter les différents isoloir
         std::queue<Electeur*> listeIsoloir;

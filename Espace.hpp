@@ -65,11 +65,12 @@ class Espace {
         Electeur* popFileEspace();
 
     private:
-        // Nom de l'espace
-        std::string nom;
-        
+    
         // Durée dans laquelle une personne reste dans l'espace
         int De;
+
+        // Nom de l'espace
+        std::string nom;
         
         // Personne actuellement dans l'espace, NULL si il n'y a personne
         Electeur* electeurEnCours;

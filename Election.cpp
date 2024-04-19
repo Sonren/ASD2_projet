@@ -89,6 +89,7 @@ bool Election::est_sur_liste(int deb, int end , Electeur* p){
     }else{
         est_sur_liste(mediane+1, end, p);
     }
+    return est_dessus;
 }
 /**
  * @brief  Cette fonction sert à ajouter un nouvel électeur à la liste électorale dans une plage spécifiée ([deb, end])
@@ -156,6 +157,7 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
             ajouter_electeur(mediane + 1, end, e);
         }
     }
+    return a_été_ajouté = false;
 }
 
 void Election::afficher_candidat(){

@@ -31,7 +31,8 @@ const int Dd = 3; //Temps minimum qu'un électeur passe dans la table de déchar
 const int Di = 6; //Temps minimum qu'un électeur passe dans un Isoloir
 const int Dv = 4; //Temps minimum qu'un électeur passe dans la table de vote
 int numeroListe = 0;
- int nbVote = 0;//nombre de vote effectué dans le bureau
+int nbVote = 0;//nombre de vote effectué dans le bureau
+int nbVoteNul = 0; // Nombre de vote nul
 
 
 
@@ -100,8 +101,6 @@ int main(void){
 
    //Déclaration des différents espace du bureau de vote
 
-   
-
    TableDeVote *table_de_vote = new TableDeVote(Dv,"table de vote", *(presidentielle));
 
    TableDeDecharge *table_de_decharge = new TableDeDecharge(Dd,"table de décharge", *(presidentielle), 0.35,0.15);
@@ -123,7 +122,7 @@ int main(void){
       //Insertion des électeurs dans le bureau de vote
       cout<<"  ENTREE"<<endl;
 
-      if (T==0 || T == 3 || T == 5 || T == 9 || T == 15 ) {
+      if (T==0 || T == 3 || T == 5 || T == 9 || T == 15 || T == 17 || T == 19) {
          if(liste_emargement[ve[numeroListe]->id()] == false){
             entrer(ve[numeroListe]);
             numeroListe++;
@@ -223,7 +222,11 @@ int main(void){
          }
       //Sinon, si la personne présente dans la table de vote n'a pas encore voter, elle le fait
       } else if(!aVoter) {
+         if (table_de_vote->getElecteurEnCours()->getChoix() == NULL) {
+            nbVoteNul++;
+         } else {
          table_de_vote->vote();
+         }
          aVoter = true;
          liste_emargement[table_de_vote->getElecteurEnCours()->id()] = true;
          cout << "     " << table_de_vote->getElecteurEnCours()->nom() << " vote"<<endl;
@@ -306,6 +309,8 @@ int main(void){
 
    
    table_de_vote->afficherUrne();
+   cout << "vote nul : " << nbVoteNul << " (" << static_cast<double>(nbVoteNul) / vc.size() * 100 << "% )" << endl;
+
    
   
 

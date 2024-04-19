@@ -1,6 +1,6 @@
 /**
  * \file Election.cpp
- *  \author Bertrand RIVARD Hugo Piard
+ * \author Bertrand RIVARD Hugo Piard
 */
 
 #include <vector>
@@ -8,77 +8,89 @@
 #include "Election.hpp"
 #include "Personne.hpp"
 
+// Constructeur par défaut de la classe Election
 Election::Election(const std::string& nom){
     nom_election = nom;
-    candidats = std::vector<Personne*>();
-    bulletin_blanc = NULL;
+    candidats = std::vector<Personne*>(); // Initialisation de la liste des candidats
+    bulletin_blanc = NULL; // Initialisation du bulletin blanc
 }
 
+// Constructeur de la classe Election prenant en compte une liste de candidats
 Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat){
     nom_election = nom;
-    candidats = liste_candidat;
-    bulletin_blanc = NULL;
+    candidats = liste_candidat; // Initialisation de la liste des candidats
+    bulletin_blanc = NULL; // Initialisation du bulletin blanc
 }
 
+// Constructeur de la classe Election prenant en compte une liste de candidats et une liste d'électeurs
 Election::Election(const std::string& nom, std::vector <Personne*> liste_candidat, std::vector <Electeur*> liste_electeur){
     nom_election = nom;
-    candidats = liste_candidat;
-    liste_electorale = liste_electeur;
-    bulletin_blanc = NULL;
+    candidats = liste_candidat; // Initialisation de la liste des candidats
+    liste_electorale = liste_electeur; // Initialisation de la liste électorale
+    bulletin_blanc = NULL; // Initialisation du bulletin blanc
 }
 
+// Destructeur de la classe Election
 Election::~Election(){
-    candidats.clear();
-    liste_electorale.clear();
+    candidats.clear(); // Nettoyage de la liste des candidats
+    liste_electorale.clear(); // Nettoyage de la liste électorale
 }
 
+// Getter pour obtenir le nom de l'élection
 std::string Election::getNom() const {
     return nom_election;
 }
 
+// Setter pour définir le nom de l'élection
 void Election::setNom(std::string new_nom){
     this->nom_election = new_nom;
 }
 
-std::vector<Personne*>  Election::getListeCandidats(){
+// Getter pour obtenir la liste des candidats
+std::vector<Personne*> Election::getListeCandidats(){
     return this->candidats;
 }
 
+// Setter pour définir le bulletin blanc
 void Election::setBulletinBlanc(Personne* personneBlanc){
     bulletin_blanc = personneBlanc;
 }
 
+// Getter pour obtenir le bulletin blanc
 Personne* Election::getBulletinBlanc(){
     return bulletin_blanc;
 }
 
+// Getter pour obtenir la liste des électeurs
 std::vector<Electeur*> Election::getListeElecteur(){
     return liste_electorale;
 }
 
+// Méthode pour ajouter un candidat à la liste des candidats
 void Election::ajouter_candidat(Personne* candi){
    candidats.push_back(candi);
 }
 
+// Méthode pour ajouter plusieurs candidats à la liste des candidats
 void Election::ajouter_des_candidats(std::vector<Personne*> vectCandi){
     for(long unsigned int j=0; j<vectCandi.size(); j++){
         candidats.push_back(vectCandi[j]);
     }
 }
 
-
-
+// Méthode pour retirer un candidat de la liste des candidats
 void  Election::retirer_candidat(int id){
     for(long unsigned int i=0; i<this->candidats.size();i++){
         if ((*(candidats[i])).id() == id) { 
             if (i < this->candidats.size() - 1) {
-             this->candidats[i] = this->candidats.back(); //on place la personne sur la derniere place de vecteur pour pouvoir le supprimer
-            }                                             //cela va permettre d'éviter de supprimer en dehors des limites du vecteur
+             this->candidats[i] = this->candidats.back(); // On place la personne à la dernière position du vecteur pour pouvoir la supprimer
+            }                                              // Cela évite de supprimer en dehors des limites du vecteur
         this->candidats.pop_back();
         }   
     }
 }
 
+// Méthode récursive pour vérifier si un électeur est sur la liste électorale dans une plage spécifiée
 bool Election::est_sur_liste(int deb, int end , Electeur* p){
     Personne::CompAlpha cmp;
     bool est_dessus = false;
@@ -167,6 +179,8 @@ bool Election::ajouter_electeur(int deb, int end, Electeur* e) {
     return a_été_ajouté = false;
 }
 
+
+// Méthode pour afficher la liste des candidats
 void Election::afficher_candidat(){
     for(long unsigned int i = 0; i<this->candidats.size(); i++){
         std::cout << "Candidat N°" <<i<< ": " << (*this->candidats[i]) << std::endl;
@@ -174,6 +188,7 @@ void Election::afficher_candidat(){
     std::cout << std::endl;
 }
 
+// Méthode pour afficher la liste des électeurs
 void Election::afficher_electeur(){
     for(long unsigned int i = 0; i<this->liste_electorale.size(); i++){
         std::cout << (*this->liste_electorale[i]) << std::endl;
@@ -181,12 +196,11 @@ void Election::afficher_electeur(){
     std::cout << std::endl;
 }
 
+// Méthode pour afficher les informations sur l'élection
 void Election::afficher_election() {
-
     std::cout << "ELECTION : " << nom_election << std::endl <<std::endl;
     std::cout << "Liste des candidats : " << std::endl;
     afficher_candidat();
-
 }
 
 

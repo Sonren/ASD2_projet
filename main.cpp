@@ -138,18 +138,18 @@ int main(void){
 
    //gestion des entrées dans le bureau de vote de manière aléatoire 
    int nbElecteurInOffice = rand() % presidentielle->getListeElecteur().size() + (presidentielle->getListeElecteur().size()/2); // ici on cherche a déterminer le nombre d'électeur qui vont entrer dans le bureau de vote pour avoir un algorithme un minimum plus realiste nous avons décider qu'au moins la moitié des électeurs allait voter
-   int* tabTempEntrée = new int[nbElecteurInOffice]{0};
+   int* tabTempEntrée = new int[nbElecteurInOffice]{0};  // Création d'un tableau pour stocker les temps d'entrée des électeurs, initialisé à 0
    for(int i = 0; i < nbElecteurInOffice; i++){
-      int tempTemps = rand() % (Tmax+1)/4;
+      int tempTemps = rand() % (Tmax+1)/4; // Génération d'un temps d'entrée aléatoire pour chaque électeur.
       if(tabTempEntrée[i-1] != Tmax){
-         while(tempTemps <= tabTempEntrée[i-1] || tempTemps == 0 || tempTemps-tabTempEntrée[i-1] > 5){
+         while(tempTemps <= tabTempEntrée[i-1] || tempTemps == 0 || tempTemps-tabTempEntrée[i-1] > 5){ // Boucle pour s'assurer que le temps d'entrée actuel est valide par rapport au précédent et aux contraintes.
             tempTemps = rand() % (Tmax+1);
          }
          tabTempEntrée[i] = tempTemps;
          for(int k=0; k<nbElecteurInOffice; k++){
          }
       }else{
-         tabTempEntrée[i] = -1; //on met le temps a -1 pour être sur que plus personne ne rentre comme le temps est décroissant
+         tabTempEntrée[i] = -1; // Si le temps d'entrée précédent a atteint le maximum, on bloque toute nouvelle entrée en mettant le temps à -1.
       }
    }
 
@@ -165,15 +165,16 @@ int main(void){
       //Insertion des électeurs dans le bureau de vote
       cout<<"  ENTREE"<<endl;
 
-      if(tabTempEntrée[numeroListe] == T){
+      if(tabTempEntrée[numeroListe] == T){ // Vérifie si le temps d'entrée de l'électeur correspond au temps actuel T.
          if(liste_emargement[presidentielle->getListeElecteur()[numeroListe]->id()] == false){
-            entrer(presidentielle->getListeElecteur()[numeroListe]);
-            numeroListe++;
+            entrer(presidentielle->getListeElecteur()[numeroListe]); // Si l'électeur n'a pas encore voté, il est autorisé à entrer dans le bureau de vote.
+            numeroListe++; // Passe à l'électeur suivant dans la liste.
          }else{
             cout << " L'electeur " << *(presidentielle->getListeElecteur()[numeroListe]) << " a déja voté " << endl;
-            numeroListe++;
+            numeroListe++; // Passe à l'électeur suivant dans la liste.
          }
       }
+      
       
       //ancienne version pour enter dans le bureau sans aléatoire 
       /*if (T==0 || T == 3 || T == 5 || T == 9 || T == 15 || T == 17 || T == 19) { // on choisit ici les auquels les différents électeurs vont entrer 
